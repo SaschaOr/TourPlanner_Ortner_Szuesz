@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TourPlanner_Ortner_Szuesz
+namespace TourPlanner_Ortner_Szuesz.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TourView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TourView : UserControl
     {
-        public MainWindow()
+        public TourView()
         {
             InitializeComponent();
-        }
-
-        private void RouteView_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
