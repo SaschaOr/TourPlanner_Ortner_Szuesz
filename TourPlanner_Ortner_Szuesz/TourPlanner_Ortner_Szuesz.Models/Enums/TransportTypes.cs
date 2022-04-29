@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner_Ortner_Szuesz.Models
+namespace TourPlanner_Ortner_Szuesz.Models.Enums
 {
-    public enum DifficultyTypes
+    public enum TransportTypes
     {
-        easy = 0,
-        medium = 1,
-        hard = 2
+        bike,
+        car
     }
 }

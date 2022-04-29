@@ -1,4 +1,6 @@
-﻿namespace TourPlanner_Ortner_Szuesz.Models
+﻿using TourPlanner_Ortner_Szuesz.Models.Enums;
+
+namespace TourPlanner_Ortner_Szuesz.Models
 {
     public class Tour
     {
