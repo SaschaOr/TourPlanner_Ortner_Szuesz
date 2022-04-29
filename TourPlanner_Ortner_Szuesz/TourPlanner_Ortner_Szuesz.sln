@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner_Ortner_Szuesz", "TourPlanner_Ortner_Szuesz\TourPlanner_Ortner_Szuesz.csproj", "{E874E29D-7B45-408A-ADB2-34F9D7DAA624}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_Ortner_Szuesz", "TourPlanner_Ortner_Szuesz\TourPlanner_Ortner_Szuesz.csproj", "{E874E29D-7B45-408A-ADB2-34F9D7DAA624}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner_Ortner_Szuesz.Models", "TourPlanner_Ortner_Szuesz.Models\TourPlanner_Ortner_Szuesz.Models.csproj", "{2C9C9465-25E4-4FBC-92F6-63DAE74F465D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E874E29D-7B45-408A-ADB2-34F9D7DAA624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E874E29D-7B45-408A-ADB2-34F9D7DAA624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E874E29D-7B45-408A-ADB2-34F9D7DAA624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C9C9465-25E4-4FBC-92F6-63DAE74F465D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C9C9465-25E4-4FBC-92F6-63DAE74F465D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C9C9465-25E4-4FBC-92F6-63DAE74F465D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C9C9465-25E4-4FBC-92F6-63DAE74F465D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
