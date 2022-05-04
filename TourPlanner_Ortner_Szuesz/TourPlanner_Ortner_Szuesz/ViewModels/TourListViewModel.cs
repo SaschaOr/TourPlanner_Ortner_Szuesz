@@ -36,6 +36,23 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public TourListViewModel()
         {
             this.tourItemFactory = TourItemFactory.GetInstance();
+
+            InitTourList();    
+        }
+
+        private void InitTourList()
+        {
+            Tours = new ObservableCollection<Tour>();
+
+            FillTourList();
+        }
+
+        private void FillTourList()
+        {
+            foreach (Tour tour in this.tourItemFactory.GetTours())
+            {
+                Tours.Add(tour);
+            }
         }
     }
 }
