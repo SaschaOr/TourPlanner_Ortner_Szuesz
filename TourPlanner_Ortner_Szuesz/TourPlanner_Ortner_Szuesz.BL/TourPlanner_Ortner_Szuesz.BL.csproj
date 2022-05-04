@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.Models\TourPlanner_Ortner_Szuesz.Models.csproj" />
+  </ItemGroup>
+
 </Project>

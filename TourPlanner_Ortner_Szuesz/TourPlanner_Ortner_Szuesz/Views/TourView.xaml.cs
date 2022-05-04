@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TourPlanner_Ortner_Szuesz.ViewModels;
 
 namespace TourPlanner_Ortner_Szuesz.Views
 {
@@ -23,6 +24,7 @@ namespace TourPlanner_Ortner_Szuesz.Views
         public TourView()
         {
             InitializeComponent();
+            this.DataContext = new TourListViewModel();
         }
     }
 }

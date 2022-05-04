@@ -24,5 +24,11 @@ namespace TourPlanner_Ortner_Szuesz.Models
             this.EstimatedTime = estimatedTime;
             this.RouteInformation = routeInformation;
         }
+
+        // for testing purposes
+        public Tour(string name)
+        {
+            this.Name = name;
+        }
     }
 }
