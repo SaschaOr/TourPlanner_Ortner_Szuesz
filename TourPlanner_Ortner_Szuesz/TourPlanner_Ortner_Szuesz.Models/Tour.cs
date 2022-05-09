@@ -4,23 +4,25 @@ namespace TourPlanner_Ortner_Szuesz.Models
 {
     public class Tour
     {
+        public int Id { get; set; } 
         public string Name { get; set; }
-        public string TourDescription { get; set; }
-        public string To { get; set; }
-        public string From { get; set; }
+        public string Description { get; set; }
+        public string Start { get; set; }
+        public string Destination { get; set; }
         public TransportTypes TransportType { get; set; }
-        public int TourDistance { get; set; }
+        public int Distance { get; set; }
         public int EstimatedTime { get; set; }
         public string RouteInformation { get; set; }
 
-        public Tour(string name, string tourDescription, string to, string from, TransportTypes transportType, int tourDistance, int estimatedTime, string routeInformation)
+        public Tour(int id, string name, string description, string start, string destination, TransportTypes transportType, int distance, int estimatedTime, string routeInformation)
         {
+            this.Id = id;
             this.Name = name;
-            this.TourDescription = tourDescription;
-            this.To = to;
-            this.From = from;
+            this.Description = description;
+            this.Start = start;
+            this.Destination = destination;
             this.TransportType = transportType;
-            this.TourDistance = tourDistance;
+            this.Distance = distance;
             this.EstimatedTime = estimatedTime;
             this.RouteInformation = routeInformation;
         }
