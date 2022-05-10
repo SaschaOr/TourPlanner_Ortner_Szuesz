@@ -3,7 +3,7 @@ using System.Data.Common;
 
 namespace TourPlanner_Ortner_Szuesz.DAL.Common
 {
-    internal interface IDatabase
+    public interface IDatabase
     {
         DbCommand CreateCommand(string genericCommandText);
         int DeclareParameter(DbCommand command, string name, DbType type);

@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <StartupObject>TourPlanner_Ortner_Szuesz.App</StartupObject>
+    <ApplicationManifest>App.config</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>

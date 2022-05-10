@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_Ortner_Szuesz",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_Ortner_Szuesz.Models", "TourPlanner_Ortner_Szuesz.Models\TourPlanner_Ortner_Szuesz.Models.csproj", "{2C9C9465-25E4-4FBC-92F6-63DAE74F465D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner_Ortner_Szuesz.DAL", "TourPlanner_Ortner_Szuesz.DAL\TourPlanner_Ortner_Szuesz.DAL.csproj", "{C67E4937-BC11-455C-A32B-B8F388EAE7D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_Ortner_Szuesz.DAL", "TourPlanner_Ortner_Szuesz.DAL\TourPlanner_Ortner_Szuesz.DAL.csproj", "{C67E4937-BC11-455C-A32B-B8F388EAE7D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner_Ortner_Szuesz.BL", "TourPlanner_Ortner_Szuesz.BL\TourPlanner_Ortner_Szuesz.BL.csproj", "{7DC93E51-FC30-4A97-A07A-85BC43B1CF7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_Ortner_Szuesz.BL", "TourPlanner_Ortner_Szuesz.BL\TourPlanner_Ortner_Szuesz.BL.csproj", "{7DC93E51-FC30-4A97-A07A-85BC43B1CF7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner_Ortner_Szuesz.Tests", "TourPlanner_Ortner_Szuesz.Tests\TourPlanner_Ortner_Szuesz.Tests.csproj", "{9B7674E4-4F8A-41DA-A0EA-CAF0CCC59311}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner_Ortner_Szuesz.Tests", "TourPlanner_Ortner_Szuesz.Tests\TourPlanner_Ortner_Szuesz.Tests.csproj", "{9B7674E4-4F8A-41DA-A0EA-CAF0CCC59311}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner_Ortner_Szuesz.DAL.SqlServer", "TourPlanner_Ortner_Szuesz.DAL.SqlServer\TourPlanner_Ortner_Szuesz.DAL.SqlServer.csproj", "{6D9FBAB4-E5EA-4491-8670-BA4CDB8001E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9B7674E4-4F8A-41DA-A0EA-CAF0CCC59311}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B7674E4-4F8A-41DA-A0EA-CAF0CCC59311}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B7674E4-4F8A-41DA-A0EA-CAF0CCC59311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D9FBAB4-E5EA-4491-8670-BA4CDB8001E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D9FBAB4-E5EA-4491-8670-BA4CDB8001E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D9FBAB4-E5EA-4491-8670-BA4CDB8001E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D9FBAB4-E5EA-4491-8670-BA4CDB8001E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

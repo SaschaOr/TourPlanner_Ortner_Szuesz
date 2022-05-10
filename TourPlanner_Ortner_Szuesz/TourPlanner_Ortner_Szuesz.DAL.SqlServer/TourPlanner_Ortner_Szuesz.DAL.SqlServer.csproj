@@ -3,14 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="Npgsql" Version="6.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.Models\TourPlanner_Ortner_Szuesz.Models.csproj" />
+    <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.DAL\TourPlanner_Ortner_Szuesz.DAL.csproj" />
   </ItemGroup>
 
 </Project>
