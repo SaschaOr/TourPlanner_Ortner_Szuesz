@@ -22,12 +22,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL
             // select sql query
 
             return new List<Tour>() {
-                new Tour("Tour1"),
-                new Tour("Tour2"),
                 new Tour("Tour3"),
-                new Tour("Tour4"),
-                new Tour("Tour5"),
-                new Tour("Tour6")
+                new Tour("Tour4")
             };
         }
     }

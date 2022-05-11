@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
 
@@ -11,31 +12,38 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 {
     public class TourListViewModel : ViewModelBase
     {
-        private ITourItemFactory tourItemFactory;
-        private Tour currentTour;
+        //private ITourItemFactory tourItemFactory;
+        private ITourManager mediaManager;
+        private Tour selectedTour;
 
         public ObservableCollection<Tour> Tours { get; set; }
 
-        public Tour CurrentItem
+        public Tour SelectedTour
         {
             get
             {
-                return currentTour;
+                return selectedTour;
             }
             set
             {
-                if((currentTour != value) && (value != null))
+                if((selectedTour != value) && (value != null))
                 {
-                    currentTour = value;
-                    RaisePropertyChangedEvent(nameof(CurrentItem));
+                    selectedTour = value;
+                    RaisePropertyChangedEvent(nameof(SelectedTour));
+                    //MessageBox.Show(selectedTour.Description);
+                    //MessageBox.Show(SelectedTour.Description);
+                    //OnPropertyChanged(nameof(SelectedTour));
                 }
             }
         }
 
         // pass itemFactory over constructor parameter!
-        public TourListViewModel()
+        public TourListViewModel(ITourManager mediaManager)
         {
-            this.tourItemFactory = TourItemFactory.GetInstance();
+            this.mediaManager = mediaManager;
+
+            Tours = new ObservableCollection<Tour>();
+            //SelectedTour = new Tour(3, "Bitte", "Funktioniere", "jo", "bro", Models.Enums.TransportTypes.bike, 10, 10, "bro");
 
             InitTourList();    
         }
@@ -49,7 +57,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
         private void FillTourList()
         {
-            foreach (Tour tour in this.tourItemFactory.GetTours())
+            foreach (Tour tour in this.mediaManager.GetItems())
             {
                 Tours.Add(tour);
             }

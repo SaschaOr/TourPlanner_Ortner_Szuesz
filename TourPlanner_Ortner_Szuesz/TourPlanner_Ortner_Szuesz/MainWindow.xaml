@@ -24,6 +24,7 @@
         <local:Searchbar x:Name="Searchbar" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
         <local:TourView x:Name="TourView" Grid.Row="3" Grid.Column="0" Grid.RowSpan="2"/>
         <local:RouteView x:Name="RouteView" Grid.Row="3" Grid.Column="1" Loaded="RouteView_Loaded"/>
+        <!--<local:TourDescriptionView x:Name="TourDescriptionView"/>-->
         <local:LogView x:Name="LogView" Grid.Row="4" Grid.Column="1"/>
 
     </Grid>

@@ -24,14 +24,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" FontSize="20" VerticalAlignment="Center">Tours</Label>
+            <Label Grid.Column="0" FontSize="20" VerticalAlignment="Center" Content="{Binding SelectedTour.Name}"></Label>
             <Button Grid.Column="1" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black">+</Button>
             <Button Grid.Column="2" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black">*</Button>
             <Button Grid.Column="3" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black">-</Button>
         </Grid>
         
         <ListView ItemsSource="{Binding Tours}"
-                  SelectedItem="{Binding CurrentTour}"
+                  SelectedItem="{Binding SelectedTour}"
                   Name="toursListView"
                   DisplayMemberPath="Name"
                   Grid.Row="1" Margin="5"></ListView>

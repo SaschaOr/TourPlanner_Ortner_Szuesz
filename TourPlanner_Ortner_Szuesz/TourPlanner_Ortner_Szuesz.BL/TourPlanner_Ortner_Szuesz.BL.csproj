@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.DAL.SqlServer\TourPlanner_Ortner_Szuesz.DAL.SqlServer.csproj" />
     <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.DAL\TourPlanner_Ortner_Szuesz.DAL.csproj" />
     <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.Models\TourPlanner_Ortner_Szuesz.Models.csproj" />
   </ItemGroup>

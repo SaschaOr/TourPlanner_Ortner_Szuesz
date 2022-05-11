@@ -63,7 +63,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
                         (string)reader["description"],
                         (string)reader["startlocation"],
                         (string)reader["endlocation"],
-                        (TransportTypes)Enum.Parse(typeof(TransportTypes), (string)reader["transporttype"]),
+                        (TransportTypes)Enum.Parse(typeof(TransportTypes), reader["transporttype"].ToString()),
                         (int)reader["distance"],
                         (int)reader["estimatedtime"],
                         (string)reader["routeinformation"]

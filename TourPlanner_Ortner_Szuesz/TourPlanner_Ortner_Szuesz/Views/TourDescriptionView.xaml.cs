@@ -18,11 +18,11 @@ using TourPlanner_Ortner_Szuesz.ViewModels;
 namespace TourPlanner_Ortner_Szuesz.Views
 {
     /// <summary>
-    /// Interaction logic for TourView.xaml
+    /// Interaktionslogik für TourDescriptionView.xaml
     /// </summary>
-    public partial class TourView : UserControl
+    public partial class TourDescriptionView : UserControl
     {
-        public TourView()
+        public TourDescriptionView()
         {
             InitializeComponent();
             this.DataContext = new TourListViewModel(TourManagerFactory.GetFactoryManager());

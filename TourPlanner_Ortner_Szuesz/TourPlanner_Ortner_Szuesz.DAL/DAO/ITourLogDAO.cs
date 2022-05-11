@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TourPlanner_Ortner_Szuesz.DAL.DAO
 {
-    internal interface ITourLogDAO
+    public interface ITourLogDAO
     {
     }
 }
