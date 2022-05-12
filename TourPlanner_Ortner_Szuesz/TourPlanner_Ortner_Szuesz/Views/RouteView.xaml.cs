@@ -25,7 +25,7 @@ namespace TourPlanner_Ortner_Szuesz.Views
         public RouteView()
         {
             InitializeComponent();
-            this.DataContext = new TourListViewModel(TourManagerFactory.GetFactoryManager());
+            //this.DataContext = new TourListViewModel(TourManagerFactory.GetFactoryManager());
         }
     }
 }

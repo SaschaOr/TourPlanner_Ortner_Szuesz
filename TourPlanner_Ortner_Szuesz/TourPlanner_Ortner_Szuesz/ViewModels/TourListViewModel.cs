@@ -38,9 +38,9 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         }
 
         // pass itemFactory over constructor parameter!
-        public TourListViewModel(ITourManager mediaManager)
+        public TourListViewModel()
         {
-            this.mediaManager = mediaManager;
+            this.mediaManager = TourManagerFactory.GetFactoryManager();
 
             Tours = new ObservableCollection<Tour>();
             //SelectedTour = new Tour(3, "Bitte", "Funktioniere", "jo", "bro", Models.Enums.TransportTypes.bike, 10, 10, "bro");

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourPlanner_Ortner_Szuesz.Views"
-             xmlns:viewmodels="clr-namespace:TourPlanner_Ortner_Szuesz.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:TourListViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -21,7 +20,7 @@
                 <Label Content="Content goes here..." />
             </TabItem>
             <TabItem Header="Description">
-                <local:TourDescriptionView x:Name="TourDescriptionView"/>
+                <local:TourDescriptionView x:Name="TourDescriptionView" DataContext="{Binding TourListViewModel}"/>
             </TabItem>
         </TabControl>
 
