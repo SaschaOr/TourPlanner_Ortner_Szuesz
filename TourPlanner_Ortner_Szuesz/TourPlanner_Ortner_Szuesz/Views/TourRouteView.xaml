@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TourPlanner_Ortner_Szuesz.Views.RouteView"
+﻿<UserControl x:Class="TourPlanner_Ortner_Szuesz.Views.TourRouteView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,18 +11,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" FontSize="20" VerticalAlignment="Center">Title:</Label>
-        <TabControl Grid.Row="1">
-            <TabItem Header="Route">
-                <local:TourRouteView x:Name="TourRouteView" DataContext="{Binding TourListViewModel}"/>
-            </TabItem>
-            <TabItem Header="Description">
-                <local:TourDescriptionView x:Name="TourDescriptionView" DataContext="{Binding TourListViewModel}"/>
-            </TabItem>
-        </TabControl>
 
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding SelectedTour.Name}"/>
+        <Image Grid.Row="1" Grid.Column="0" Source="{Binding SelectedTour.RouteImage}"/>
     </Grid>
 </UserControl>

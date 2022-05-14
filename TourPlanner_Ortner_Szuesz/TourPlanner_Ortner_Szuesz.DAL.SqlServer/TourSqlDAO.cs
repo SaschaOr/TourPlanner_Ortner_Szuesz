@@ -15,6 +15,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private const string SQL_FIND_BY_ID = "SELECT * FROM public.\"tour\" WHERE \"id\"=@id;";
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tour\";";
         private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype) RETURNING \"id\";";
+        private const string SQL_UPDATE_ROUTE_IMAGE_PATH = "UPDATE public.\"tour\" SET ;";
 
         private IDatabase database;
         public TourSqlDAO()
@@ -72,6 +73,18 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             }
 
             return tourList;
+        }
+
+        public int SetRouteImagePath(int tourId, string path)
+        {
+            DbCommand updateCommand = database.CreateCommand(SQL_INSERT_NEW_ITEM);
+            database.DefineParameter(insertCommand, "@name", DbType.String, name);
+            database.DefineParameter(insertCommand, "@description", DbType.String, description);
+            database.DefineParameter(insertCommand, "@startlocation", DbType.String, startLocation);
+            database.DefineParameter(insertCommand, "@endlocation", DbType.String, endLocation);
+            database.DefineParameter(insertCommand, "@transporttype", DbType.Int32, transportType);
+
+            return FindById(database.ExecuteScalar(insertCommand));
         }
     }
 }

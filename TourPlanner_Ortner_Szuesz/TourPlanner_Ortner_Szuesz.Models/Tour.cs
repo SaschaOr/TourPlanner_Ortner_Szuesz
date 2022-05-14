@@ -12,9 +12,10 @@ namespace TourPlanner_Ortner_Szuesz.Models
         public TransportTypes TransportType { get; set; }
         public int Distance { get; set; }
         public int EstimatedTime { get; set; }
-        public string RouteInformation { get; set; }
+        public string RouteImagePath { get; set; }
+        public byte[] RouteImage { get; set; }
 
-        public Tour(int id, string name, string description, string startLocation, string endLocation, TransportTypes transportType, int distance, int estimatedTime, string routeInformation)
+        public Tour(int id, string name, string description, string startLocation, string endLocation, TransportTypes transportType, int distance, int estimatedTime, string routeImagePath)
         {
             this.Id = id;
             this.Name = name;
@@ -24,7 +25,7 @@ namespace TourPlanner_Ortner_Szuesz.Models
             this.TransportType = transportType;
             this.Distance = distance;
             this.EstimatedTime = estimatedTime;
-            this.RouteInformation = routeInformation;
+            this.RouteImagePath = routeImagePath;
         }
 
         // for testing purposes

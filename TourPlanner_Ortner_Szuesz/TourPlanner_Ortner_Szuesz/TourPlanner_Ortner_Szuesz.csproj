@@ -13,4 +13,8 @@
     <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.Models\TourPlanner_Ortner_Szuesz.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\tours\" />
+  </ItemGroup>
+
 </Project>

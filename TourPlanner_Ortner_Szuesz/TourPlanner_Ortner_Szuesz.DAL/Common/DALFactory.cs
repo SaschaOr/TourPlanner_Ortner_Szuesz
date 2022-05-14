@@ -38,7 +38,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.Common
         private static IDatabase CreateDatabase()
         {
             //string connectionString = ConfigurationManager.ConnectionStrings["PostgresSQLConnectionString"].ConnectionString;
-            string connectionString = "Server=127.0.0.1;Port=5432;Database=postgres;User Id=postgres;Password=password";
+            string connectionString = "Server=127.0.0.1;Port=5432;Database=tourplanner;User Id=postgres;Password=password";
             return CreateDatabase(connectionString);
         }
 

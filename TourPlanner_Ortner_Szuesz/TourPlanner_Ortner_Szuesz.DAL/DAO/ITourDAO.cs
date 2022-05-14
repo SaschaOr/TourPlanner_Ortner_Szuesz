@@ -7,8 +7,10 @@ namespace TourPlanner_Ortner_Szuesz.DAL.DAO
 {
     public interface ITourDAO
     {
-            Tour FindById(int tourId);
-            Tour AddNewItem(string name, string description, string startLocation, string endLocation, TransportTypes transportType);
-            IEnumerable<Tour> GetItems();
+        Tour FindById(int tourId);
+        Tour AddNewItem(string name, string description, string startLocation, string endLocation, TransportTypes transportType);
+        IEnumerable<Tour> GetItems();
+        int SetRouteImagePath(int tourId, string path);
+        
     }
 }
