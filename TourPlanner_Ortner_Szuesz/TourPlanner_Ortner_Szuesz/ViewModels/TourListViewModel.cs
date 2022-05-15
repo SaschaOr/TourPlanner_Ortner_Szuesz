@@ -29,6 +29,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 if((selectedTour != value) && (value != null))
                 {
                     selectedTour = value;
+
                     RaisePropertyChangedEvent(nameof(SelectedTour));
                     //MessageBox.Show(selectedTour.Description);
                     //MessageBox.Show(SelectedTour.Description);

@@ -16,17 +16,18 @@ namespace TourPlanner_Ortner_Szuesz.BL
 {
     public class TourManagerImplementation : ITourManager
     {
+        private ITourDAO tourDAO = new TourSqlDAO();
+
         public Tour CreateItem(string name, string description, string startLocation, string endLocation, TransportTypes transportType)
         {
             //ITourDAO tourDAO = DALFactory.CreateTourDAO();
-            ITourDAO tourDAO = new TourSqlDAO();
+            
             return tourDAO.AddNewItem(name, description, startLocation, endLocation, transportType);
         }
 
         public IEnumerable<Tour> GetItems()
         {
             //ITourDAO tourDAO = DALFactory.CreateTourDAO();
-            ITourDAO tourDAO = new TourSqlDAO();
             return tourDAO.GetItems();
         }
 
@@ -68,7 +69,7 @@ namespace TourPlanner_Ortner_Szuesz.BL
                 File.WriteAllBytes(tourItem.RouteImagePath, tourBytes);
 
                 // save image path in database
-
+                tourDAO.SetRouteImagePath(tourItem.Id, tourItem.RouteImagePath);
 
                 return tourItem;
             }
