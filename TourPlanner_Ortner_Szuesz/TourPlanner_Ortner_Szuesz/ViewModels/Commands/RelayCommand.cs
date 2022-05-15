@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TourPlanner_Ortner_Szuesz.ViewModels
+namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
 {
     public class RelayCommand : ICommand
     {

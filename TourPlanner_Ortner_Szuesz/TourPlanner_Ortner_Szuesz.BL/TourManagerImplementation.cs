@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TourPlanner_Ortner_Szuesz.DAL.Common;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
 using TourPlanner_Ortner_Szuesz.DAL.REST;
@@ -18,17 +19,29 @@ namespace TourPlanner_Ortner_Szuesz.BL
     {
         private ITourDAO tourDAO = new TourSqlDAO();
 
-        public Tour CreateItem(string name, string description, string startLocation, string endLocation, TransportTypes transportType)
-        {
-            //ITourDAO tourDAO = DALFactory.CreateTourDAO();
-            
-            return tourDAO.AddNewItem(name, description, startLocation, endLocation, transportType);
-        }
 
         public IEnumerable<Tour> GetItems()
         {
             //ITourDAO tourDAO = DALFactory.CreateTourDAO();
             return tourDAO.GetItems();
+        }
+        public async Task<Tour> CreateItem(Tour tourItem)
+        {
+            //ITourDAO tourDAO = DALFactory.CreateTourDAO
+            
+            tourItem = await GetDistanceAndTimeFromTour(tourItem);
+            MessageBox.Show("Test");
+            tourItem = tourDAO.AddNewItem(tourItem);
+            MessageBox.Show("Test1");
+            tourItem = await SaveImageInFileSystem(tourItem);
+            MessageBox.Show("Test2");
+
+            return tourItem;
+        }
+
+        public async Task<Tour> UpdateItem(Tour tourItem)
+        {
+            return await GetDistanceAndTimeFromTour(tourItem);
         }
 
         private async Task<Tour> GetDistanceAndTimeFromTour(Tour tourItem)
@@ -64,6 +77,8 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
                 // define path of image
                 tourItem.RouteImagePath = Path.Combine("Resources\\tours", $"{tourItem.Id}_{tourItem.Name}.png");
+
+                MessageBox.Show(tourItem.RouteImagePath);
 
                 // save image bytes as png image in file system
                 File.WriteAllBytes(tourItem.RouteImagePath, tourBytes);

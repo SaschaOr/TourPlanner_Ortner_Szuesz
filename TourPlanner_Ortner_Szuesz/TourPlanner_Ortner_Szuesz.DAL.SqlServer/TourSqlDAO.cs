@@ -14,7 +14,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
     {
         private const string SQL_FIND_BY_ID = "SELECT * FROM public.\"tour\" WHERE \"id\"=@id;";
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tour\";";
-        private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype) RETURNING \"id\";";
+        private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\", \"distance\", \"estimatedtime\", \"routeimagepath\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype, @distance, @estimatedtime, @routeimagepath) RETURNING \"id\";";
         private const string SQL_UPDATE_ROUTE_IMAGE_PATH = "UPDATE public.\"tour\" SET \"routeimagepath\"=@routeimagepath WHERE \"id\"=@id;";
 
         private IDatabase database;
@@ -32,14 +32,17 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             IEnumerable<Tour> tours = QueryToursFromDb(command);
             return tours.FirstOrDefault();
         }
-        public Tour AddNewItem(string name, string description, string startLocation, string endLocation, TransportTypes transportType)
+        public Tour AddNewItem(Tour tourItem)
         {
             DbCommand insertCommand = database.CreateCommand(SQL_INSERT_NEW_ITEM);
-            database.DefineParameter(insertCommand, "@name", DbType.String, name);
-            database.DefineParameter(insertCommand, "@description", DbType.String, description);
-            database.DefineParameter(insertCommand, "@startlocation", DbType.String, startLocation);
-            database.DefineParameter(insertCommand, "@endlocation", DbType.String, endLocation);
-            database.DefineParameter(insertCommand, "@transporttype", DbType.Int32, transportType);
+            database.DefineParameter(insertCommand, "@name", DbType.String, tourItem.Name);
+            database.DefineParameter(insertCommand, "@description", DbType.String, tourItem.Description);
+            database.DefineParameter(insertCommand, "@startlocation", DbType.String, tourItem.StartLocation);
+            database.DefineParameter(insertCommand, "@endlocation", DbType.String, tourItem.EndLocation);
+            database.DefineParameter(insertCommand, "@transporttype", DbType.Int32, (int)tourItem.TransportType);
+            database.DefineParameter(insertCommand, "@distance", DbType.Int32, tourItem.Distance);
+            database.DefineParameter(insertCommand, "@estimatedtime", DbType.Int32, tourItem.EstimatedTime);
+            database.DefineParameter(insertCommand, "@routeimagepath", DbType.String, "default");
 
             return FindById(database.ExecuteScalar(insertCommand));
         }

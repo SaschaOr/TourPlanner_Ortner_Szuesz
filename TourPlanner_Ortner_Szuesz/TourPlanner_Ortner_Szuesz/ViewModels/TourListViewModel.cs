@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
+using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
+using TourPlanner_Ortner_Szuesz.Views;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
 {
@@ -17,6 +20,8 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         private Tour selectedTour;
 
         public ObservableCollection<Tour> Tours { get; set; }
+
+        public ICommand AddTourCommand { get; }
 
         public Tour SelectedTour
         {
@@ -44,9 +49,14 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             this.mediaManager = TourManagerFactory.GetFactoryManager();
 
             Tours = new ObservableCollection<Tour>();
-            //SelectedTour = new Tour(3, "Bitte", "Funktioniere", "jo", "bro", Models.Enums.TransportTypes.bike, 10, 10, "bro");
 
-            InitTourList();    
+            InitTourList();
+
+            AddTourCommand = new RelayCommand((_) =>
+            {
+                var dialog = new TourDialog(this, null);
+                dialog.ShowDialog();
+            });
         }
 
         private void InitTourList()

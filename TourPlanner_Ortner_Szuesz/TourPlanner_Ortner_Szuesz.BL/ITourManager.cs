@@ -11,6 +11,7 @@ namespace TourPlanner_Ortner_Szuesz.BL
     public interface ITourManager
     {
         IEnumerable<Tour> GetItems();
-        Tour CreateItem(string name, string description, string startLocation, string endLocation, TransportTypes transportType);
+        Task<Tour> CreateItem(Tour tourItem);
+        Task<Tour> UpdateItem(Tour tourItem);
     }
 }

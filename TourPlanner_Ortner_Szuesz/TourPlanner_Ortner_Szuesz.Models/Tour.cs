@@ -28,6 +28,16 @@ namespace TourPlanner_Ortner_Szuesz.Models
             this.RouteImagePath = routeImagePath;
         }
 
+        public Tour(int id, string name, string description, string startLocation, string endLocation, TransportTypes transportType)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Description = description;
+            this.StartLocation = startLocation;
+            this.EndLocation = endLocation;
+            this.TransportType = transportType;
+        }
+
         // for testing purposes
         public Tour(string name)
         {

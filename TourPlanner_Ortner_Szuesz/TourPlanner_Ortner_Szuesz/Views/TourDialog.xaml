@@ -10,11 +10,55 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="80*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding DialogHeading}"/>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TourName}"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Description:"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TourDescription}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Start:"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TourStartLocation}"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Destination:"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourEndLocation}"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" Text="{Binding TourTransportType}">
+                <ComboBoxItem IsSelected="True" Content="Car"/>
+                <ComboBoxItem Content="Bus"/>
+                <ComboBoxItem Content="Bike"/>
+                <ComboBoxItem Content="Walk"/>
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Content="Submit" Command="{Binding SubmitTourCommand}"/>
+            <Button Grid.Column="1" Grid.Row="0" Content="Cancel"/>
+        </Grid>
     </Grid>
 </Window>
