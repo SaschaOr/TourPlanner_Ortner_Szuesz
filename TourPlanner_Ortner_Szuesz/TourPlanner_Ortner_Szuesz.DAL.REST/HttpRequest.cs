@@ -5,15 +5,15 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
 using TourPlanner_Ortner_Szuesz.DAL.Common;
+using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.Models;
 
 namespace TourPlanner_Ortner_Szuesz.DAL.REST
 {
     public class HttpRequest : IHttpRequest
     {
-		private readonly string apiKey = ConfigurationManager.GetConfig().ApiKey;
+		private readonly string apiKey = TourPlannerConfigurationManager.GetConfig().ApiKey;
 		private HttpClient httpClient;
 
 		public HttpRequest(HttpClient client)

@@ -30,11 +30,8 @@ namespace TourPlanner_Ortner_Szuesz.BL
             //ITourDAO tourDAO = DALFactory.CreateTourDAO
             
             tourItem = await GetDistanceAndTimeFromTour(tourItem);
-            MessageBox.Show("Test");
             tourItem = tourDAO.AddNewItem(tourItem);
-            MessageBox.Show("Test1");
             tourItem = await SaveImageInFileSystem(tourItem);
-            MessageBox.Show("Test2");
 
             return tourItem;
         }
@@ -77,8 +74,6 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
                 // define path of image
                 tourItem.RouteImagePath = Path.Combine("Resources\\tours", $"{tourItem.Id}_{tourItem.Name}.png");
-
-                MessageBox.Show(tourItem.RouteImagePath);
 
                 // save image bytes as png image in file system
                 File.WriteAllBytes(tourItem.RouteImagePath, tourBytes);

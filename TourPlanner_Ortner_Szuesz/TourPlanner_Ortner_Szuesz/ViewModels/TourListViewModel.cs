@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
 using TourPlanner_Ortner_Szuesz.Views;
+using System.Drawing;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
 {
@@ -34,8 +37,16 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 if((selectedTour != value) && (value != null))
                 {
                     selectedTour = value;
-
                     RaisePropertyChangedEvent(nameof(SelectedTour));
+
+                    // display image
+                    if(selectedTour.RouteImagePath != null)
+                    {
+                        string currentPath = Path.Combine(Directory.GetCurrentDirectory(), selectedTour.RouteImagePath);
+                        selectedTour.RouteImage = GetImageFromFileSystem(currentPath);
+                        RaisePropertyChangedEvent(nameof(SelectedTour));
+                    }
+
                     //MessageBox.Show(selectedTour.Description);
                     //MessageBox.Show(SelectedTour.Description);
                     //OnPropertyChanged(nameof(SelectedTour));
@@ -72,6 +83,26 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             {
                 Tours.Add(tour);
             }
+        }
+
+        private byte[] GetImageFromFileSystem(String imagePath)
+        {
+            // load file metadata
+            FileInfo fileInfo = new FileInfo(imagePath);
+
+            byte[] image = new byte[fileInfo.Length];
+
+            using(FileStream fs = fileInfo.OpenRead())
+            {
+                fs.Read(image, 0, image.Length);
+            }
+
+            return image;
+        }
+
+        public void AddNewTourToList(Tour tourItem)
+        {
+            Tours.Add(tourItem);
         }
     }
 }

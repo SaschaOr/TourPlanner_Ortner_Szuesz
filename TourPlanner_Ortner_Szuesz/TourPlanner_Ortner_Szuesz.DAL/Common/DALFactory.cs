@@ -5,8 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using TourPlanner_Ortner_Szuesz.DAL.DAO;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
+using TourPlanner_Ortner_Szuesz.DAL.DAO;
 
 namespace TourPlanner_Ortner_Szuesz.DAL.Common
 {
@@ -38,7 +38,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.Common
 
         private static IDatabase CreateDatabase()
         {
-            var config = ConfigurationManager.GetConfig();
+            var config = TourPlannerConfigurationManager.GetConfig();
             string connectionString = $"Host={config.DatabaseHost};Port={config.DatabasePort};Username={config.DatabaseUsername};Password={config.DatabasePassword};Database={config.DatabaseName}";
             return CreateDatabase(connectionString);
         }

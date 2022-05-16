@@ -7,10 +7,21 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 
 
-namespace TourPlanner.DataAccessLayer.Configuration
+namespace TourPlanner_Ortner_Szuesz.DAL.Configuration
 {
-    public static class ConfigurationManager
+    public static class TourPlannerConfigurationManager
     {
+        public class TourPlannerConfiguration
+        {
+            public string DatabaseHost { get; set; }
+            public string DatabasePort { get; set; }
+            public string DatabaseUsername { get; set; }
+            public string DatabasePassword { get; set; }
+            public string DatabaseName { get; set; }
+            public string ApiKey { get; set; }
+            public string ImageLocation { get; set; }
+        }
+
         public static TourPlannerConfiguration GetConfig()
         {
             IConfiguration config = new ConfigurationBuilder()
@@ -27,17 +38,6 @@ namespace TourPlanner.DataAccessLayer.Configuration
                 DatabaseName = config["db:database"],
                 ApiKey = config["api-key"]
             };
-        }
-
-        public class TourPlannerConfiguration
-        {
-            public string ImageLocation { get; set; }
-            public string DatabaseHost { get; set; }
-            public string DatabasePort { get; set; }
-            public string DatabaseUsername { get; set; }
-            public string DatabasePassword { get; set; }
-            public string DatabaseName { get; set; }
-            public string ApiKey { get; set; }
         }
     }
 }

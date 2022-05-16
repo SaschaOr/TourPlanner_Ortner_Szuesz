@@ -1,5 +1,4 @@
 ﻿{
-  "image-location": "Resources\\tours",
   "db": {
     "host": "localhost",
     "port": 5432,
@@ -7,5 +6,6 @@
     "password": "password",
     "database": "tourplanner"
   },
-  "api-key": "vX1MVXWPd5rlVGG5x5r3GPGkuYJ8IPfw"
+  "api-key": "vX1MVXWPd5rlVGG5x5r3GPGkuYJ8IPfw",
+  "image-location": "Resources\\tours"
 }

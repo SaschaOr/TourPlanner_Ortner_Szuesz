@@ -30,6 +30,14 @@
             <Button Grid.Column="3" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black">-</Button>
         </Grid>
 
-        <ListView Name="toursListView" Grid.Row="1" Margin="5"></ListView>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding TourLogs}" CanUserSortColumns="True" CanUserReorderColumns="True" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding LogDate}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Time" Binding="{Binding LogTime}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Difficulty" Binding="{Binding LogDifficulty}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Rating" Binding="{Binding LogRating}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding LogComment}" Width="20*" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
