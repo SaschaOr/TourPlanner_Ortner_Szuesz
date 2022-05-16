@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
+using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 
 namespace TourPlanner_Ortner_Szuesz.DAL.Common
 {
@@ -37,8 +38,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.Common
 
         private static IDatabase CreateDatabase()
         {
-            //string connectionString = ConfigurationManager.ConnectionStrings["PostgresSQLConnectionString"].ConnectionString;
-            string connectionString = "Server=127.0.0.1;Port=5432;Database=tourplanner;User Id=postgres;Password=password";
+            var config = ConfigurationManager.GetConfig();
+            string connectionString = $"Host={config.DatabaseHost};Port={config.DatabasePort};Username={config.DatabaseUsername};Password={config.DatabasePassword};Database={config.DatabaseName}";
             return CreateDatabase(connectionString);
         }
 
