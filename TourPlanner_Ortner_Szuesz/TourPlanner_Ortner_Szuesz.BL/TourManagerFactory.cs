@@ -8,15 +8,25 @@ namespace TourPlanner_Ortner_Szuesz.BL
 {
     public class TourManagerFactory
     {
-        private static ITourManager manager;
+        private static ITourManager tourManager;
+        private static ITourLogManager tourLogManager;
 
-        public static ITourManager GetFactoryManager()
+        public static ITourManager GetTourFactoryManager()
         {
-            if (manager == null)
+            if (tourManager == null)
             {
-                manager = new TourManagerImplementation();
+                tourManager = new TourManagerImplementation();
             }
-            return manager;
+            return tourManager;
+        }
+
+        public static ITourLogManager GetTourLogFactoryManager()
+        {
+            if (tourLogManager == null)
+            {
+                tourLogManager = new TourLogManagerImplementation();
+            }
+            return tourLogManager;
         }
     }
 }

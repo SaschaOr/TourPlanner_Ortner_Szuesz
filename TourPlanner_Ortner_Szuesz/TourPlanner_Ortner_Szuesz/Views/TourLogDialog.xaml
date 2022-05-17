@@ -1,0 +1,64 @@
+﻿<Window x:Class="TourPlanner_Ortner_Szuesz.Views.TourLogDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourPlanner_Ortner_Szuesz.Views"
+        mc:Ignorable="d"
+        Title="TourLogDialog" Height="450" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="80*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding DialogHeading}"/>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Date:"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TourLogDate}"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Time:"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TourLogTime}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Difficulty:"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TourLogDifficulty}"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Rating:"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourLogRating}"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Comment:"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" Text="{Binding TourLogComment}">
+                <ComboBoxItem IsSelected="True" Content="Car"/>
+                <ComboBoxItem Content="Bus"/>
+                <ComboBoxItem Content="Bike"/>
+                <ComboBoxItem Content="Walk"/>
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Content="Submit" Command="{Binding SubmitTourLogCommand}"/>
+            <Button Grid.Column="1" Grid.Row="0" Content="Cancel"/>
+        </Grid>
+    </Grid>
+</Window>

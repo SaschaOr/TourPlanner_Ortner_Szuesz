@@ -52,7 +52,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
                 if(CreateTour)
                 {
                     //create tour
-                    tourItem = await TourManagerFactory.GetFactoryManager().CreateItem(tourItem);
+                    tourItem = await TourManagerFactory.GetTourFactoryManager().CreateItem(tourItem);
                     TourListViewModel.AddNewTourToList(tourItem);
                 }
             }

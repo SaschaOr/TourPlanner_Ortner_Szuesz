@@ -17,11 +17,11 @@ namespace TourPlanner_Ortner_Szuesz
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            var tourListViewModel = new TourListViewModel();
-            var routeViewModel = new RouteViewModel(tourListViewModel);
             var tourLogListViewModel = new TourLogListViewModel();
+            var tourListViewModel = new TourListViewModel(tourLogListViewModel);
+            var routeViewModel = new RouteViewModel(tourListViewModel);
 
-            var mainViewModel = new MainWindowViewModel(tourListViewModel, routeViewModel, tourLogListViewModel);
+            var mainViewModel = new MainWindowViewModel(tourLogListViewModel, tourListViewModel, routeViewModel);
 
             var main = new MainWindow(mainViewModel);
 

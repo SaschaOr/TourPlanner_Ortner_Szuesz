@@ -22,6 +22,8 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         private ITourManager mediaManager;
         private Tour selectedTour;
 
+        public TourLogListViewModel TourLogListViewModel { get; set; }
+
         public ObservableCollection<Tour> Tours { get; set; }
 
         public ICommand AddTourCommand { get; }
@@ -50,14 +52,18 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                     //MessageBox.Show(selectedTour.Description);
                     //MessageBox.Show(SelectedTour.Description);
                     //OnPropertyChanged(nameof(SelectedTour));
+
+                    // load logs from selected tour
+                    TourLogListViewModel.LoadDataFromSelectedTour(selectedTour);
                 }
             }
         }
 
         // pass itemFactory over constructor parameter!
-        public TourListViewModel()
+        public TourListViewModel(TourLogListViewModel tourLogListViewModel)
         {
-            this.mediaManager = TourManagerFactory.GetFactoryManager();
+            this.mediaManager = TourManagerFactory.GetTourFactoryManager();
+            TourLogListViewModel = tourLogListViewModel;
 
             Tours = new ObservableCollection<Tour>();
 

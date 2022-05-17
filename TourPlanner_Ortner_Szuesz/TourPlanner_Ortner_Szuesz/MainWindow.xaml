@@ -25,7 +25,7 @@
         <local:TourView x:Name="TourView" Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" DataContext="{Binding TourListViewModel}"/>
         <local:RouteView x:Name="RouteView" Grid.Row="3" Grid.Column="1" Loaded="RouteView_Loaded" DataContext="{Binding RouteViewModel}"/>
         <!--<local:TourDescriptionView x:Name="TourDescriptionView"/>-->
-        <local:LogView x:Name="LogView" Grid.Row="4" Grid.Column="1"/>
+        <local:LogView x:Name="LogView" Grid.Row="4" Grid.Column="1" DataContext="{Binding TourLogListViewModel}"/>
 
     </Grid>
 </Window>

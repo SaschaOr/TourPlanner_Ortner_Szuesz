@@ -26,12 +26,24 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 
         public TourLog AddNewItem(TourLog tourLogItem)
         {
-            throw new NotImplementedException();
+            DbCommand insertCommand = database.CreateCommand(SQL_INSERT_NEW_ITEM);
+            database.DefineParameter(insertCommand, "@date", DbType.Date, tourLogItem.Date);
+            database.DefineParameter(insertCommand, "@difficulty", DbType.Int32, (int)tourLogItem.Difficulty);
+            database.DefineParameter(insertCommand, "@totaltime", DbType.Int32, tourLogItem.TotalTime);
+            database.DefineParameter(insertCommand, "@rating", DbType.Int32, tourLogItem.Rating);
+            database.DefineParameter(insertCommand, "@comment", DbType.String, tourLogItem.Comment);
+            database.DefineParameter(insertCommand, "@tourid", DbType.Int32, tourLogItem.TourId);
+
+            return FindById(database.ExecuteScalar(insertCommand));
         }
 
         public TourLog FindById(int tourLogId)
         {
-            throw new NotImplementedException();
+            DbCommand command = database.CreateCommand(SQL_FIND_BY_ID);
+            database.DefineParameter(command, "@id", DbType.Int32, tourLogId);
+
+            IEnumerable<TourLog> tourLogs = QueryTourLogsFromDb(command);
+            return tourLogs.FirstOrDefault();
         }
 
         public IEnumerable<TourLog> GetItems(int tourId)
@@ -51,7 +63,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
                 {
                     tourLogList.Add(new TourLog(
                         (int)reader["id"],
-                        (DateOnly)reader["date"],
+                        DateOnly.Parse(Convert.ToDateTime(reader["date"].ToString())),
                         (DifficultyTypes)Enum.Parse(typeof(DifficultyTypes), reader["difficulty"].ToString()),
                         (int)reader["totaltime"],
                         (int)reader["rating"],

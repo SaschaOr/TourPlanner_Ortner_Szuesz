@@ -9,7 +9,7 @@ using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
 {
-    public class TourDialogViewModel
+    public class TourDialogViewModel : ViewModelBase
     {
         public int TourId { get; set; }
         public string TourName { get; set; }
