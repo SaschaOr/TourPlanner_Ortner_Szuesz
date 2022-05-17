@@ -11,9 +11,9 @@ namespace TourPlanner_Ortner_Szuesz.Models
         public int TotalTime { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; }
-        public Tour LogTour { get; set; }   
+        public int TourId { get; set; }   
 
-        public TourLog(int Id, DateOnly date, DifficultyTypes difficulty, int totalTime, int rating, string comment, Tour loggedTour)
+        public TourLog(int Id, DateOnly date, DifficultyTypes difficulty, int totalTime, int rating, string comment, int tourId)
         {
             this.Id = Id;
             this.Date = date;
@@ -21,7 +21,7 @@ namespace TourPlanner_Ortner_Szuesz.Models
             this.TotalTime = totalTime;
             this.Rating = rating;
             this.Comment = comment;
-            this.LogTour = loggedTour;
+            this.TourId = tourId;
         }
     }
 }
