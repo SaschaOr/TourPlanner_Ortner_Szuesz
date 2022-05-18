@@ -27,8 +27,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
         {
             bool fieldsAreNotNull = true;
 
-            if (string.IsNullOrEmpty(TourLogDialogViewModel.TourLogDate)
-                || string.IsNullOrEmpty(TourLogDialogViewModel.TourLogComment)
+            if (string.IsNullOrEmpty(TourLogDialogViewModel.TourLogComment)
                 || string.IsNullOrEmpty(TourLogDialogViewModel.TourLogTime))
             {
                 fieldsAreNotNull = false;
@@ -40,7 +39,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
         public override void Execute(object parameter)
         {
             TourLog tourLogItem = new TourLog(TourLogDialogViewModel.TourLogId,
-                DateOnly.Parse(TourLogDialogViewModel.TourLogDate),
+                TourLogDialogViewModel.TourLogDate,
                 (DifficultyTypes)TourLogDialogViewModel.TourLogDifficulty,
                 Convert.ToInt32(TourLogDialogViewModel.TourLogTime),
                 TourLogDialogViewModel.TourLogRating,
@@ -62,6 +61,8 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
                 throw new NullReferenceException(); // weglassen?
                 return;
             }
+
+            TourLogDialogViewModel.Close();
         }
     }
 }

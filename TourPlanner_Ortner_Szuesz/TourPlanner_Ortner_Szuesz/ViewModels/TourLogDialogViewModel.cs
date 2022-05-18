@@ -12,7 +12,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
     public class TourLogDialogViewModel : ViewModelBase
     {
         public int TourLogId { get; set; }
-        public string TourLogDate { get; set; }
+        public DateTime TourLogDate { get; set; }
         public string TourLogTime { get; set; }
         public int TourLogDifficulty { get; set; }
         public int TourLogRating { get; set; }
@@ -30,6 +30,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             DialogHeading = "Create Tour Log";
             TourLogId = 0;
             SelectedTour = tourItem;
+            TourLogDate = DateTime.Now;
 
             // updating existing tour log item
             if(tourLogItem != null)
@@ -46,7 +47,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         private void FillTourLogValuesInTextBox(TourLog tourLogItem)
         {
             TourLogId = tourLogItem.Id;
-            TourLogDate = tourLogItem.Date.ToString();
+            TourLogDate = tourLogItem.Date;
             TourLogTime = tourLogItem.TotalTime.ToString();
             TourLogDifficulty = (int)tourLogItem.Difficulty;
             TourLogRating = (int)tourLogItem.Rating;

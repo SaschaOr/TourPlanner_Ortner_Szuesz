@@ -7,5 +7,6 @@
     "database": "tourplanner"
   },
   "api-key": "vX1MVXWPd5rlVGG5x5r3GPGkuYJ8IPfw",
-  "image-location": "Resources\\tours"
+  "image-location": "Resources\\tours",
+  "default-image-location": "Resources\\tours\\DefaultImage.PNG"
 }

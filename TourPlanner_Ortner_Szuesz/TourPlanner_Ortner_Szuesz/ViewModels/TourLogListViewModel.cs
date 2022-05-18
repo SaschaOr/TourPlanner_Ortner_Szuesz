@@ -50,6 +50,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
                 TourLogs = new ObservableCollection<TourLog>();
                 FillTourLogList(tourItem.Id);
+                RaisePropertyChangedEvent(nameof(TourLogs));
 
                 AddTourLogCommand = new RelayCommand((_) =>
                 {

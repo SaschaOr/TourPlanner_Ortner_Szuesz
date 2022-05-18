@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using TourPlanner_Ortner_Szuesz.DAL.Common;
+using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Models.Enums;
@@ -16,13 +17,14 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tour\";";
         private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\", \"distance\", \"estimatedtime\", \"routeimagepath\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype, @distance, @estimatedtime, @routeimagepath) RETURNING \"id\";";
         private const string SQL_UPDATE_ROUTE_IMAGE_PATH = "UPDATE public.\"tour\" SET \"routeimagepath\"=@routeimagepath WHERE \"id\"=@id;";
+        private const string SQL_UPDATE_TOUR = "UPDATE public.\"tour\" SET \"name\"=@name, \"description\"=@description, \"startlocation\"=@startlocation, \"endlocation\"=@endlocation, \"transporttype\"=@transporttype, \"distance\"=@distance, \"estimatedtime\"=@estimatedtime WHERE \"id\"=@id;";
+        private const string SQL_DELETE_TOUR = "DELETE FROM public.\"tour\" WHERE \"id\"=@id;";
 
         private IDatabase database;
         public TourSqlDAO()
         {
             this.database = DALFactory.GetDatabase();
         }
-
 
         public Tour FindById(int tourID)
         {
@@ -32,6 +34,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             IEnumerable<Tour> tours = QueryToursFromDb(command);
             return tours.FirstOrDefault();
         }
+
         public Tour AddNewItem(Tour tourItem)
         {
             DbCommand insertCommand = database.CreateCommand(SQL_INSERT_NEW_ITEM);
@@ -42,9 +45,41 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             database.DefineParameter(insertCommand, "@transporttype", DbType.Int32, (int)tourItem.TransportType);
             database.DefineParameter(insertCommand, "@distance", DbType.Int32, tourItem.Distance);
             database.DefineParameter(insertCommand, "@estimatedtime", DbType.Int32, tourItem.EstimatedTime);
-            database.DefineParameter(insertCommand, "@routeimagepath", DbType.String, "default");
+            database.DefineParameter(insertCommand, "@routeimagepath", DbType.String, TourPlannerConfigurationManager.GetConfig().DefaultImageLocation);
 
             return FindById(database.ExecuteScalar(insertCommand));
+        }
+
+        public Tour UpdateItem(Tour tourItem)
+        {
+            DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_TOUR);
+            database.DefineParameter(updateCommand, "@name", DbType.String, tourItem.Name);
+            database.DefineParameter(updateCommand, "@description", DbType.String, tourItem.Description);
+            database.DefineParameter(updateCommand, "@startlocation", DbType.String, tourItem.StartLocation);
+            database.DefineParameter(updateCommand, "@endlocation", DbType.String, tourItem.EndLocation);
+            database.DefineParameter(updateCommand, "@transporttype", DbType.Int32, (int)tourItem.TransportType);
+            database.DefineParameter(updateCommand, "@distance", DbType.Int32, tourItem.Distance);
+            database.DefineParameter(updateCommand, "@estimatedtime", DbType.Int32, tourItem.EstimatedTime);
+
+            database.ExecuteScalar(updateCommand);
+
+            return FindById(tourItem.Id);
+        }
+
+        public bool DeleteItem(Tour tourItem)
+        {
+            DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_TOUR);
+            database.DefineParameter(deleteCommand, "@id", DbType.Int32, tourItem.Id);
+
+            int deletedRows = database.ExecuteScalar(deleteCommand);
+
+            // at least one row has been deleted
+            if (deletedRows > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public IEnumerable<Tour> GetItems()

@@ -41,10 +41,9 @@
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourEndLocation}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
             <ComboBox Grid.Row="4" Grid.Column="1" Text="{Binding TourTransportType}">
-                <ComboBoxItem IsSelected="True" Content="Car"/>
-                <ComboBoxItem Content="Bus"/>
-                <ComboBoxItem Content="Bike"/>
-                <ComboBoxItem Content="Walk"/>
+                <ComboBoxItem Content="Car"/>
+                <ComboBoxItem Content="Bicycle"/>
+                <ComboBoxItem Content="Walking"/>
             </ComboBox>
         </Grid>
 

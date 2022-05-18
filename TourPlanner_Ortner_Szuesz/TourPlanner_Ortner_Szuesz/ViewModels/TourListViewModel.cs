@@ -93,14 +93,23 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
         private byte[] GetImageFromFileSystem(String imagePath)
         {
-            // load file metadata
-            FileInfo fileInfo = new FileInfo(imagePath);
+            byte[] image;
 
-            byte[] image = new byte[fileInfo.Length];
-
-            using(FileStream fs = fileInfo.OpenRead())
+            try
             {
-                fs.Read(image, 0, image.Length);
+                // load file metadata
+                FileInfo fileInfo = new FileInfo(imagePath);
+
+                image = new byte[fileInfo.Length];
+
+                using (FileStream fs = fileInfo.OpenRead())
+                {
+                    fs.Read(image, 0, image.Length);
+                }
+            }
+            catch
+            {
+                image = null;
             }
 
             return image;

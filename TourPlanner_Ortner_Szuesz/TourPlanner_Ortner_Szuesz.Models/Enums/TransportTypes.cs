@@ -8,7 +8,8 @@ namespace TourPlanner_Ortner_Szuesz.Models.Enums
 {
     public enum TransportTypes
     {
-        bike,
-        car
+        Car = 0,
+        Bicycle,
+        Walking
     }
 }

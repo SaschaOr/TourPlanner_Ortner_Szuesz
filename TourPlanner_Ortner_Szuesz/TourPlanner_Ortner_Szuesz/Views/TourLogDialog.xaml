@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner_Ortner_Szuesz.Views"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="TourLogDialog" Height="450" Width="400">
     <Grid>
@@ -32,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Date:"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TourLogDate}"/>
+            <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding TourLogDate, TargetNullValue={x:Static System:DateTime.Now}}"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Time:"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TourLogTime}"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Difficulty:"/>
@@ -40,12 +41,7 @@
             <Label Grid.Row="3" Grid.Column="0" Content="Rating:"/>
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourLogRating}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Comment:"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" Text="{Binding TourLogComment}">
-                <ComboBoxItem IsSelected="True" Content="Car"/>
-                <ComboBoxItem Content="Bus"/>
-                <ComboBoxItem Content="Bike"/>
-                <ComboBoxItem Content="Walk"/>
-            </ComboBox>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TourLogComment}"/>
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0">

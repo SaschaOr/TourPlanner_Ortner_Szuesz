@@ -63,7 +63,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
                 {
                     tourLogList.Add(new TourLog(
                         (int)reader["id"],
-                        DateOnly.Parse(Convert.ToDateTime(reader["date"].ToString())),
+                        Convert.ToDateTime(reader["date"]),
                         (DifficultyTypes)Enum.Parse(typeof(DifficultyTypes), reader["difficulty"].ToString()),
                         (int)reader["totaltime"],
                         (int)reader["rating"],

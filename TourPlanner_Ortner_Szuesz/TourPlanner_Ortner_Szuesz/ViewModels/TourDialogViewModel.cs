@@ -16,7 +16,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public string TourDescription { get; set; }
         public string TourStartLocation { get; set; }
         public string TourEndLocation { get; set; }
-        public int TourTransportType { get; set; }
+        public string TourTransportType { get; set; }
         public string DialogHeading { get; set; }
         private bool createTour { get; set; }
 

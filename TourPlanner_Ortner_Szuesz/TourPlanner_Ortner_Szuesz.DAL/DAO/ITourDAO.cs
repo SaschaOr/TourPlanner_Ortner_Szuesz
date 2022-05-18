@@ -9,6 +9,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.DAO
     {
         Tour FindById(int tourId);
         Tour AddNewItem(Tour tourItem);
+        Tour UpdateItem(Tour tourItem);
+        bool DeleteItem(Tour tourItem);
         IEnumerable<Tour> GetItems();
         int SetRouteImagePath(int tourId, string path);
         

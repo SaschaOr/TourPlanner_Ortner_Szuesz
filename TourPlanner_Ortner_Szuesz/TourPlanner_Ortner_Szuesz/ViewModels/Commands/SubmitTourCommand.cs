@@ -45,7 +45,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
                 TourDialogViewModel.TourDescription,
                 TourDialogViewModel.TourStartLocation,
                 TourDialogViewModel.TourEndLocation,
-                (TransportTypes)TourDialogViewModel.TourTransportType);
+                (TransportTypes)Enum.Parse(typeof(TransportTypes), TourDialogViewModel.TourTransportType));
 
             try
             {
@@ -62,6 +62,8 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
                 throw new NullReferenceException(); // weglassen?
                 return;
             }
+
+            TourDialogViewModel.Close();
         }
     }
 }

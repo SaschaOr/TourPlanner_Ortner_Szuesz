@@ -20,6 +20,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.Configuration
             public string DatabaseName { get; set; }
             public string ApiKey { get; set; }
             public string ImageLocation { get; set; }
+            public string DefaultImageLocation { get; set; }
         }
 
         public static TourPlannerConfiguration GetConfig()
@@ -36,7 +37,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.Configuration
                 DatabaseUsername = config["db:username"],
                 DatabasePassword = config["db:password"],
                 DatabaseName = config["db:database"],
-                ApiKey = config["api-key"]
+                ApiKey = config["api-key"],
+                DefaultImageLocation = config["default-image-location"]
             };
         }
     }
