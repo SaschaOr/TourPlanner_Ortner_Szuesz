@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Windows;
 using TourPlanner_Ortner_Szuesz.DAL.Common;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
@@ -60,8 +61,9 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             database.DefineParameter(updateCommand, "@transporttype", DbType.Int32, (int)tourItem.TransportType);
             database.DefineParameter(updateCommand, "@distance", DbType.Int32, tourItem.Distance);
             database.DefineParameter(updateCommand, "@estimatedtime", DbType.Int32, tourItem.EstimatedTime);
+            database.DefineParameter(updateCommand, "@id", DbType.Int32, tourItem.Id);
 
-            database.ExecuteScalar(updateCommand);
+            int updatedRows = database.ExecuteNonQuery(updateCommand);
 
             return FindById(tourItem.Id);
         }
@@ -71,7 +73,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_TOUR);
             database.DefineParameter(deleteCommand, "@id", DbType.Int32, tourItem.Id);
 
-            int deletedRows = database.ExecuteScalar(deleteCommand);
+            int deletedRows = database.ExecuteNonQuery(deleteCommand);
 
             // at least one row has been deleted
             if (deletedRows > 0)

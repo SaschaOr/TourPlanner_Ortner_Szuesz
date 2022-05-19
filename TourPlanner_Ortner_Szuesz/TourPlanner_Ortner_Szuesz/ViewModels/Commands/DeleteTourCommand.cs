@@ -16,17 +16,21 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
 		}
 
 		public override bool CanExecute(object? parameter) {
-			return !TourListViewModel.IsEmpty() &&
-				base.CanExecute(parameter);
+			bool toursAvailable = false;
+
+			if(TourListViewModel.Tours.Count > 0)
+            {
+				toursAvailable = true;
+            }
+
+			return toursAvailable && base.CanExecute(parameter);
 		}
 
 		public override void Execute(object? parameter) {
-			if (!TourListViewModel.DeleteTour()) {
-				MessageBox.Show("Could not delete selected tour", "Tour deletion error", MessageBoxButton.OK,
-					MessageBoxImage.Error); 
+			if (!TourListViewModel.DeleteSelectedTour()) {
+				MessageBox.Show("Something went wrong! Please try again!"); 
 				return;
 			}
-			TourListViewModel.RemoveSelectedTourFromList;
 		}
 	}
 }

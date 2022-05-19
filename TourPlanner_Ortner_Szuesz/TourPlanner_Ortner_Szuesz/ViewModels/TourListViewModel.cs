@@ -27,6 +27,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public ObservableCollection<Tour> Tours { get; set; }
 
         public ICommand AddTourCommand { get; }
+        public ICommand UpdateTourCommand { get; set; }
         public ICommand DeleteTourCommand { get; }
 
         public Tour SelectedTour
@@ -50,9 +51,9 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                         RaisePropertyChangedEvent(nameof(SelectedTour));
                     }
 
-                    //MessageBox.Show(selectedTour.Description);
-                    //MessageBox.Show(SelectedTour.Description);
-                    //OnPropertyChanged(nameof(SelectedTour));
+                    // update selected tour
+                    UpdateTourCommand = new UpdateTourCommand(this, selectedTour);
+                    RaisePropertyChangedEvent(nameof(UpdateTourCommand));
 
                     // load logs from selected tour
                     TourLogListViewModel.LoadDataFromSelectedTour(selectedTour);
@@ -75,6 +76,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 var dialog = new TourDialog(this, null);
                 dialog.ShowDialog();
             });
+
             DeleteTourCommand = new DeleteTourCommand(this);
         }
 
@@ -117,32 +119,39 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             return image;
         }
 
-        public bool emptyList()
-        {
-            return Tours.Count <= 0;
-        }
         public void AddNewTourToList(Tour tourItem)
         {
             Tours.Add(tourItem);
         }
 
-        public void updateTour(Tour tour)
+        public void UpdateTourList(Tour tourItem)
         {
-            var previousTour = Tours.FirstOrDefault(previousTour => previousTour.Id == tour.Id);
-            Tours[Tours.IndexOf(previousTour)] = tour;
-            SelectedTour = tour;
-        }
-
-        public void RemoveSelectedTourFromList()
-        {
-            var remove = SelectedTour;
-            SelectedTour = Tours.FirstOrDefault();
-            Tours.Remove(remove);
+            var tour = Tours.FirstOrDefault(tour => tour.Id == tourItem.Id);
+            SelectedTour = tourItem;
+            int index = Tours.IndexOf(tour);
+            MessageBox.Show($"Current Index: {index} | List Length: {Tours.Count}");
+            Tours[index] = tourItem;
         }
         
-        public bool DeleteTour(Tour tourItem)
+        public bool DeleteSelectedTour()
         {
-            return TourManagerFactory.GetTourFactoryManager().DeleteItem(tourItem);
+            bool isDeleted = this.mediaManager.DeleteItem(SelectedTour);
+
+            if(isDeleted)
+            {
+                // remove from list
+                Tours.Remove(SelectedTour);
+
+                // delete image
+                string path = Path.Combine(Directory.GetCurrentDirectory(), SelectedTour.RouteImagePath);
+                
+                if(File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+            }
+
+            return isDeleted;
         }
         
     }

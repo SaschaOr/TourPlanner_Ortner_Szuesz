@@ -71,5 +71,10 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             return Convert.ToInt32(command.ExecuteScalar());
         }
 
+        public int ExecuteNonQuery(DbCommand command)
+        {
+            command.Connection= CreateOpenConnection();
+            return command.ExecuteNonQuery();
+        }
     }
 }

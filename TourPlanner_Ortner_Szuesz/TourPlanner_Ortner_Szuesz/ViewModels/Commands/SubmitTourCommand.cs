@@ -51,9 +51,16 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
             {
                 if(CreateTour)
                 {
-                    //create tour
+                    // create tour
                     tourItem = await TourManagerFactory.GetTourFactoryManager().CreateItem(tourItem);
                     TourListViewModel.AddNewTourToList(tourItem);
+                }
+                else
+                {
+                    // update tour
+                    // ERROR PREVENTION WHEN EG. GATEWAY TIMEOUT FROM MAPQUEST
+                    tourItem = await TourManagerFactory.GetTourFactoryManager().UpdateItem(tourItem);
+                    TourListViewModel.UpdateTourList(tourItem);
                 }
             }
             catch(NullReferenceException)

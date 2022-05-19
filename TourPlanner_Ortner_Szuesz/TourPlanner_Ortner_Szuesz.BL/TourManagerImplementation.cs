@@ -38,7 +38,11 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
         public async Task<Tour> UpdateItem(Tour tourItem)
         {
-            return await GetDistanceAndTimeFromTour(tourItem);
+            tourItem = await GetDistanceAndTimeFromTour(tourItem);
+            tourItem = tourDAO.UpdateItem(tourItem);
+            tourItem = await SaveImageInFileSystem(tourItem);
+
+            return tourItem;
         }
 
         public bool DeleteItem(Tour tourItem)

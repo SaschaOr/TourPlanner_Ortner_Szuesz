@@ -12,5 +12,6 @@ namespace TourPlanner_Ortner_Szuesz.DAL.Common
 
         IDataReader ExecuteReader(DbCommand command);
         int ExecuteScalar(DbCommand command);
+        int ExecuteNonQuery(DbCommand command);
     }
 }
