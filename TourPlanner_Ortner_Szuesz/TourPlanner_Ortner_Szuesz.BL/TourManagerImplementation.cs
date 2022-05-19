@@ -41,6 +41,11 @@ namespace TourPlanner_Ortner_Szuesz.BL
             return await GetDistanceAndTimeFromTour(tourItem);
         }
 
+        public bool DeleteItem(Tour tourItem)
+        {
+            return tourDAO.DeleteItem(tourItem);
+        }
+
         private async Task<Tour> GetDistanceAndTimeFromTour(Tour tourItem)
         {
             var httpRequest = new HttpRequest(new HttpClient());

@@ -13,5 +13,6 @@ namespace TourPlanner_Ortner_Szuesz.BL
         IEnumerable<Tour> GetItems();
         Task<Tour> CreateItem(Tour tourItem);
         Task<Tour> UpdateItem(Tour tourItem);
+        bool DeleteItem(Tour tourItem);
     }
 }

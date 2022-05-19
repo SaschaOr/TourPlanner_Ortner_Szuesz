@@ -27,6 +27,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public ObservableCollection<Tour> Tours { get; set; }
 
         public ICommand AddTourCommand { get; }
+        public ICommand DeleteTourCommand { get; }
 
         public Tour SelectedTour
         {
@@ -74,6 +75,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 var dialog = new TourDialog(this, null);
                 dialog.ShowDialog();
             });
+            DeleteTourCommand = new DeleteTourCommand(this);
         }
 
         private void InitTourList()
@@ -115,9 +117,33 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             return image;
         }
 
+        public bool emptyList()
+        {
+            return Tours.Count <= 0;
+        }
         public void AddNewTourToList(Tour tourItem)
         {
             Tours.Add(tourItem);
         }
+
+        public void updateTour(Tour tour)
+        {
+            var previousTour = Tours.FirstOrDefault(previousTour => previousTour.Id == tour.Id);
+            Tours[Tours.IndexOf(previousTour)] = tour;
+            SelectedTour = tour;
+        }
+
+        public void RemoveSelectedTourFromList()
+        {
+            var remove = SelectedTour;
+            SelectedTour = Tours.FirstOrDefault();
+            Tours.Remove(remove);
+        }
+        
+        public bool DeleteTour(Tour tourItem)
+        {
+            return TourManagerFactory.GetTourFactoryManager().DeleteItem(tourItem);
+        }
+        
     }
 }
