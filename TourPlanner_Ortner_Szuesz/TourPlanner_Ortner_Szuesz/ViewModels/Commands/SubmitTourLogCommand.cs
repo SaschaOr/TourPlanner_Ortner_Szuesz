@@ -50,9 +50,15 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
             {
                 if (CreateTourLog)
                 {
-                    //create tour
+                    // create tour log
                     tourLogItem = TourManagerFactory.GetTourLogFactoryManager().CreateItem(tourLogItem);
                     TourLogListViewModel.AddNewTourLogToList(tourLogItem);
+                }
+                else
+                {
+                    // update tour log
+                    tourLogItem = TourManagerFactory.GetTourLogFactoryManager().UpdateItem(tourLogItem);
+                    TourLogListViewModel.UpdateTourLogList(tourLogItem);
                 }
             }
             catch (NullReferenceException)

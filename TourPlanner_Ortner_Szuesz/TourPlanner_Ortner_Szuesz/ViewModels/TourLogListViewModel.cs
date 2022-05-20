@@ -21,6 +21,8 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public ObservableCollection<TourLog> TourLogs { get; set; }
 
         public ICommand AddTourLogCommand { get; set;  }
+        public ICommand UpdateTourLogCommand { get; set;  }
+        public ICommand DeleteTourLogCommand { get; set;  }
 
 
         public TourLog SelectedTourLog
@@ -33,6 +35,12 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             {
                 selectedTourLog = value;
                 RaisePropertyChangedEvent(nameof(SelectedTourLog));
+
+                UpdateTourLogCommand = new UpdateTourLogCommand(this, SelectedTour, selectedTourLog);
+                RaisePropertyChangedEvent(nameof(UpdateTourLogCommand));
+
+                DeleteTourLogCommand = new DeleteTourLogCommand(this);
+                RaisePropertyChangedEvent(nameof(DeleteTourLogCommand));
             }
         }
 
@@ -73,6 +81,29 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public void AddNewTourLogToList(TourLog tourLogItem)
         {
             TourLogs.Add(tourLogItem);
+        }
+
+        public void UpdateTourLogList(TourLog tourLogItem)
+        {
+            var tourLog = TourLogs.FirstOrDefault(tourLog => tourLog.Id == tourLogItem.Id);
+            int index = TourLogs.IndexOf(tourLog);
+
+            // replace old tour log with updated one
+            TourLogs[index] = tourLogItem;
+            SelectedTourLog = tourLogItem;
+        }
+
+        public bool DeleteSelectedTourLog()
+        {
+            bool isDeleted = this.mediaManager.DeleteItem(SelectedTourLog);
+
+            if(isDeleted)
+            {
+                // remove from list
+                TourLogs.Remove(SelectedTourLog);
+            }
+
+            return isDeleted;
         }
     }
 }

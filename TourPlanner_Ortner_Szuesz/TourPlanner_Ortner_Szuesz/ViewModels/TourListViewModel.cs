@@ -127,10 +127,11 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public void UpdateTourList(Tour tourItem)
         {
             var tour = Tours.FirstOrDefault(tour => tour.Id == tourItem.Id);
-            SelectedTour = tourItem;
             int index = Tours.IndexOf(tour);
-            MessageBox.Show($"Current Index: {index} | List Length: {Tours.Count}");
+
+            // replace old tour with updated one
             Tours[index] = tourItem;
+            SelectedTour = tourItem;
         }
         
         public bool DeleteSelectedTour()

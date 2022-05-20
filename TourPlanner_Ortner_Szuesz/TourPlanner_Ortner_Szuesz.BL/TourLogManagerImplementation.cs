@@ -25,7 +25,12 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
         public TourLog UpdateItem(TourLog tourLogItem)
         {
-            throw new NotImplementedException();
+            return tourLogDAO.UpdateItem(tourLogItem);
+        }
+
+        public bool DeleteItem(TourLog tourLogItem)
+        {
+            return tourLogDAO.DeleteItem(tourLogItem);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tourlog\" (\"date\", \"difficulty\", \"totaltime\", \"rating\",\"comment\",\"tourid\") VALUES (@date, @difficulty, @totaltime, @rating, @comment, @tourid) RETURNING \"id\";";
         private const string SQL_FIND_BY_ID = "SELECT * FROM public.\"tourlog\" WHERE \"id\"=@id;";
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tourlog\" WHERE \"tourid\"=@tourid;";
+        private const string SQL_UPDATE_ITEM = "UPDATE public.\"tourlog\" SET \"date\"=@date, \"difficulty\"=@difficulty, \"totaltime\"=@totaltime, \"rating\"=@rating, \"comment\"=@comment WHERE \"id\"=@id;";
+        private const string SQL_DELETE_ITEM = "DELETE FROM public.\"tourlog\" WHERE \"id\"=@id;";
 
         private IDatabase database;
         public TourLogSqlDAO()
@@ -35,6 +37,37 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             database.DefineParameter(insertCommand, "@tourid", DbType.Int32, tourLogItem.TourId);
 
             return FindById(database.ExecuteScalar(insertCommand));
+        }
+
+        public TourLog UpdateItem(TourLog tourLogItem)
+        {
+            DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_ITEM);
+            database.DefineParameter(updateCommand, "@date", DbType.Date, tourLogItem.Date);
+            database.DefineParameter(updateCommand, "@difficulty", DbType.Int32, (int)tourLogItem.Difficulty);
+            database.DefineParameter(updateCommand, "@totaltime", DbType.Int32, tourLogItem.TotalTime);
+            database.DefineParameter(updateCommand, "@rating", DbType.Int32, tourLogItem.Rating);
+            database.DefineParameter(updateCommand, "@comment", DbType.String, tourLogItem.Comment);
+            database.DefineParameter(updateCommand, "@id", DbType.Int32, tourLogItem.Id);
+
+            int updatedRows = database.ExecuteNonQuery(updateCommand);
+
+            return FindById(tourLogItem.Id);
+        }
+
+        public bool DeleteItem(TourLog tourLogItem)
+        {
+            DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_ITEM);
+            database.DefineParameter(deleteCommand, "@id", DbType.Int32, tourLogItem.Id);
+
+            int deletedRows = database.ExecuteNonQuery(deleteCommand);
+
+            // at least one row has been deleted
+            if (deletedRows > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public TourLog FindById(int tourLogId)

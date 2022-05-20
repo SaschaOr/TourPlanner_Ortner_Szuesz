@@ -12,5 +12,6 @@ namespace TourPlanner_Ortner_Szuesz.BL
         IEnumerable<TourLog> GetItems(int tourId);
         TourLog CreateItem(TourLog tourLogItem);
         TourLog UpdateItem(TourLog tourLogItem);
+        bool DeleteItem(TourLog tourLogItem);
     }
 }

@@ -18,8 +18,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tour\";";
         private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\", \"distance\", \"estimatedtime\", \"routeimagepath\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype, @distance, @estimatedtime, @routeimagepath) RETURNING \"id\";";
         private const string SQL_UPDATE_ROUTE_IMAGE_PATH = "UPDATE public.\"tour\" SET \"routeimagepath\"=@routeimagepath WHERE \"id\"=@id;";
-        private const string SQL_UPDATE_TOUR = "UPDATE public.\"tour\" SET \"name\"=@name, \"description\"=@description, \"startlocation\"=@startlocation, \"endlocation\"=@endlocation, \"transporttype\"=@transporttype, \"distance\"=@distance, \"estimatedtime\"=@estimatedtime WHERE \"id\"=@id;";
-        private const string SQL_DELETE_TOUR = "DELETE FROM public.\"tour\" WHERE \"id\"=@id;";
+        private const string SQL_UPDATE_ITEM = "UPDATE public.\"tour\" SET \"name\"=@name, \"description\"=@description, \"startlocation\"=@startlocation, \"endlocation\"=@endlocation, \"transporttype\"=@transporttype, \"distance\"=@distance, \"estimatedtime\"=@estimatedtime WHERE \"id\"=@id;";
+        private const string SQL_DELETE_ITEM = "DELETE FROM public.\"tour\" WHERE \"id\"=@id;";
 
         private IDatabase database;
         public TourSqlDAO()
@@ -53,7 +53,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 
         public Tour UpdateItem(Tour tourItem)
         {
-            DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_TOUR);
+            DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_ITEM);
             database.DefineParameter(updateCommand, "@name", DbType.String, tourItem.Name);
             database.DefineParameter(updateCommand, "@description", DbType.String, tourItem.Description);
             database.DefineParameter(updateCommand, "@startlocation", DbType.String, tourItem.StartLocation);
@@ -70,7 +70,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 
         public bool DeleteItem(Tour tourItem)
         {
-            DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_TOUR);
+            DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_ITEM);
             database.DefineParameter(deleteCommand, "@id", DbType.Int32, tourItem.Id);
 
             int deletedRows = database.ExecuteNonQuery(deleteCommand);

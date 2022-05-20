@@ -26,11 +26,11 @@
             </Grid.RowDefinitions>
             <Label Grid.Column="0" FontSize="20" VerticalAlignment="Center">Logs:</Label>
             <Button Grid.Column="1" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black" Command="{Binding AddTourLogCommand}">+</Button>
-            <Button Grid.Column="2" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black">*</Button>
-            <Button Grid.Column="3" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black">-</Button>
+            <Button Grid.Column="2" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black" Command="{Binding UpdateTourLogCommand}">*</Button>
+            <Button Grid.Column="3" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black" Command="{Binding DeleteTourLogCommand}">-</Button>
         </Grid>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding TourLogs}" CanUserSortColumns="True" CanUserReorderColumns="True" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding TourLogs}" SelectedItem="{Binding SelectedTourLog}" CanUserSortColumns="True" CanUserReorderColumns="True" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='{}{0:ddd, dd.MM.yyyy}'}" Width="20*" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Time" Binding="{Binding TotalTime}" Width="20*" IsReadOnly="True"/>
