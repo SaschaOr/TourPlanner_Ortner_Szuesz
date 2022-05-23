@@ -20,10 +20,9 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
         public ObservableCollection<TourLog> TourLogs { get; set; }
 
-        public ICommand AddTourLogCommand { get; set;  }
-        public ICommand UpdateTourLogCommand { get; set;  }
-        public ICommand DeleteTourLogCommand { get; set;  }
-
+        public ICommand AddTourLogCommand { get; set; }
+        public ICommand UpdateTourLogCommand { get; set; }
+        public ICommand DeleteTourLogCommand { get; set; }
 
         public TourLog SelectedTourLog
         {
@@ -52,7 +51,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
         public void LoadDataFromSelectedTour(Tour tourItem)
         {
-            if(tourItem != null)
+            if (tourItem != null)
             {
                 SelectedTour = tourItem;
 
@@ -97,7 +96,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         {
             bool isDeleted = this.mediaManager.DeleteItem(SelectedTourLog);
 
-            if(isDeleted)
+            if (isDeleted)
             {
                 // remove from list
                 TourLogs.Remove(SelectedTourLog);

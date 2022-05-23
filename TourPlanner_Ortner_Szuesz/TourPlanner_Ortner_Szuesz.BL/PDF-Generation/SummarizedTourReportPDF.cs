@@ -91,13 +91,13 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
                         .Add(new Paragraph(tour.EndLocation));
 
                 Cell content4 = new Cell(1, 1)
-                        .Add(new Paragraph(calcValues.CalculateAverageTime(tour.));
+                        .Add(new Paragraph(calcValues.CalculateAverageTime(logs).ToString()));
 
                 Cell content5 = new Cell(1, 1)
                         .Add(new Paragraph(tour.Distance.ToString()));
 
                 Cell content6 = new Cell(1, 1)
-                        .Add(new Paragraph(tourLog.Comment));
+                        .Add(new Paragraph(calcValues.CalculateAverageRating(logs).ToString()));
 
                 tableTourLogs.AddCell(content1);
                 tableTourLogs.AddCell(content2);
