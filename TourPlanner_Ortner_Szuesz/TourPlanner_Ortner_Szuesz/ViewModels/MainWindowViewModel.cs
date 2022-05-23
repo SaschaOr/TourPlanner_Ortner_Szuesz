@@ -11,16 +11,18 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 		public TourListViewModel TourListViewModel { get; set; }
 		public RouteViewModel RouteViewModel { get; set; }
 		public TourLogListViewModel TourLogListViewModel { get; set; }
+		public MenuViewModel MenuViewModel { get; set; }
 
 		public MainWindowViewModel(
 			TourLogListViewModel tourLogListViewModel,
 			TourListViewModel tourListViewModel,
-			RouteViewModel routeViewModel
-			)
+			RouteViewModel routeViewModel,
+			MenuViewModel menuViewModel)
 		{
 			TourLogListViewModel = tourLogListViewModel;
 			TourListViewModel = tourListViewModel;
 			RouteViewModel = routeViewModel;
+			MenuViewModel = menuViewModel;
 		}
 	}
 }
