@@ -11,11 +11,12 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
     public class MenuViewModel : ViewModelBase
     {
         public ICommand GenerateTourReportCommand { get; }
-        public ICommand GenerateSummarizedReportCommand { get; }
+        public ICommand GenerateSummarizedTourReportCommand { get; }
 
         public MenuViewModel(TourListViewModel tourListViewModel, TourLogListViewModel tourLogListViewModel)
         {
             GenerateTourReportCommand = new GenerateTourReportCommand(tourListViewModel, tourLogListViewModel);
+            GenerateSummarizedTourReportCommand = new GenerateSummarizedTourReportCommand(tourListViewModel);
         }
     }
 }

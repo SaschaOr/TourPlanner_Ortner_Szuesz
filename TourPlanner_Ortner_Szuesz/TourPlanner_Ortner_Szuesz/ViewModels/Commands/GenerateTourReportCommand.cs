@@ -23,7 +23,6 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
 
         public override void Execute(object parameter)
         {
-            MessageBox.Show("hello");
             tourReportPDF = new TourReportPDF();
             tourReportPDF.PrintTourReport(TourListViewModel.SelectedTour, TourLogListViewModel.TourLogs);
         }

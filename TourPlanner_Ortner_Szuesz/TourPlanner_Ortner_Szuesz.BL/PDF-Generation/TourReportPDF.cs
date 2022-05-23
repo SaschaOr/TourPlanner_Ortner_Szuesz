@@ -23,6 +23,11 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
     {
         public void PrintTourReport(Tour tourItem, ObservableCollection<TourLog> tourLogs)
         {
+            if(tourItem == null)
+            {
+                return;
+            }
+
             // get file path
             var config = TourPlannerConfigurationManager.GetConfig();
             string reportPath = Path.Combine(Directory.GetCurrentDirectory(), config.ReportLocation, $"TourReport_{tourItem.Name.ToString()}.pdf");
@@ -31,7 +36,11 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
             // calculate values
             CalculateTourAttributes calcValues = new CalculateTourAttributes();
 
-            System.Windows.MessageBox.Show(reportPath);
+            // delete item if exists -> instead of using new process to save new one
+            if(File.Exists(reportPath))
+            {
+                File.Delete(reportPath);
+            }
 
             PdfWriter pdfWriter = new PdfWriter(reportPath);
             PdfDocument tourReport = new PdfDocument(pdfWriter);

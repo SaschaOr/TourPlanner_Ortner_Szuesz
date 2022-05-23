@@ -18,7 +18,7 @@
                 <MenuItem Header="_Report">
                     <MenuItem Header="_Tour Report" Command="{Binding GenerateTourReportCommand}">
                     </MenuItem>
-                    <MenuItem Header="_Summarize Report">
+                    <MenuItem Header="_Summarize Report" Command="{Binding GenerateSummarizedTourReportCommand}">
                     </MenuItem>
                 </MenuItem>
             </MenuItem>
