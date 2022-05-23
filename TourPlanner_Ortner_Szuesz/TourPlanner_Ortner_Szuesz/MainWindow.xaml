@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" FontSize="20" Margin="3" BorderThickness="1" VerticalAlignment="Center" BorderBrush="Black">Tour-Planner</Label>
-        <local:Menu x:Name="Menu" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <local:Menu x:Name="Menu" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding MenuViewModel}"/>
         <local:Searchbar x:Name="Searchbar" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
         <local:TourView x:Name="TourView" Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" DataContext="{Binding TourListViewModel}"/>
         <local:RouteView x:Name="RouteView" Grid.Row="3" Grid.Column="1" Loaded="RouteView_Loaded" DataContext="{Binding RouteViewModel}"/>

@@ -16,7 +16,7 @@
             </MenuItem>
             <MenuItem Header="_Options">
                 <MenuItem Header="_Report">
-                    <MenuItem Header="_Tour Report">
+                    <MenuItem Header="_Tour Report" Command="{Binding GenerateTourReportCommand}">
                     </MenuItem>
                     <MenuItem Header="_Summarize Report">
                     </MenuItem>
