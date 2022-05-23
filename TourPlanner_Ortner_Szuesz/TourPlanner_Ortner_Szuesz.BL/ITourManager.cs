@@ -14,5 +14,6 @@ namespace TourPlanner_Ortner_Szuesz.BL
         Task<Tour> CreateItem(Tour tourItem);
         Task<Tour> UpdateItem(Tour tourItem);
         bool DeleteItem(Tour tourItem);
+        bool UpdateFavouriteStatus(int tourId, bool favouriteStatus);
     }
 }

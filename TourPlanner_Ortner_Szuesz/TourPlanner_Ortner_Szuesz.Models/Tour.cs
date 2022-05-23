@@ -14,8 +14,9 @@ namespace TourPlanner_Ortner_Szuesz.Models
         public int EstimatedTime { get; set; }
         public string RouteImagePath { get; set; }
         public byte[] RouteImage { get; set; }
+        public bool IsFavourite { get; set; }
 
-        public Tour(int id, string name, string description, string startLocation, string endLocation, TransportTypes transportType, int distance, int estimatedTime, string routeImagePath)
+        public Tour(int id, string name, string description, string startLocation, string endLocation, TransportTypes transportType, int distance, int estimatedTime, string routeImagePath, bool isFavourite)
         {
             this.Id = id;
             this.Name = name;
@@ -26,6 +27,7 @@ namespace TourPlanner_Ortner_Szuesz.Models
             this.Distance = distance;
             this.EstimatedTime = estimatedTime;
             this.RouteImagePath = routeImagePath;
+            this.IsFavourite = isFavourite;
         }
 
         public Tour(int id, string name, string description, string startLocation, string endLocation, TransportTypes transportType)

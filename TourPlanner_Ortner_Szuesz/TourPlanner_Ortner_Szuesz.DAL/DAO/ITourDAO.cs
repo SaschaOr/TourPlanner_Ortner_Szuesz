@@ -13,6 +13,6 @@ namespace TourPlanner_Ortner_Szuesz.DAL.DAO
         bool DeleteItem(Tour tourItem);
         IEnumerable<Tour> GetItems();
         int SetRouteImagePath(int tourId, string path);
-        
+        bool UpdateFavouriteStatus(int tourId, bool favouriteStatus);
     }
 }

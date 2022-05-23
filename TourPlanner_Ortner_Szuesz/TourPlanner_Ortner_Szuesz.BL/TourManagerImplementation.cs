@@ -50,6 +50,11 @@ namespace TourPlanner_Ortner_Szuesz.BL
             return tourDAO.DeleteItem(tourItem);
         }
 
+        public bool UpdateFavouriteStatus(int tourId, bool favouriteStatus)
+        {
+            return tourDAO.UpdateFavouriteStatus(tourId, favouriteStatus);
+        }
+
         private async Task<Tour> GetDistanceAndTimeFromTour(Tour tourItem)
         {
             var httpRequest = new HttpRequest(new HttpClient());

@@ -16,9 +16,10 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
     {
         private const string SQL_FIND_BY_ID = "SELECT * FROM public.\"tour\" WHERE \"id\"=@id;";
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tour\";";
-        private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\", \"distance\", \"estimatedtime\", \"routeimagepath\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype, @distance, @estimatedtime, @routeimagepath) RETURNING \"id\";";
+        private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\", \"distance\", \"estimatedtime\", \"routeimagepath\", \"isfavourite\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype, @distance, @estimatedtime, @routeimagepath, @isfavourite) RETURNING \"id\";";
         private const string SQL_UPDATE_ROUTE_IMAGE_PATH = "UPDATE public.\"tour\" SET \"routeimagepath\"=@routeimagepath WHERE \"id\"=@id;";
         private const string SQL_UPDATE_ITEM = "UPDATE public.\"tour\" SET \"name\"=@name, \"description\"=@description, \"startlocation\"=@startlocation, \"endlocation\"=@endlocation, \"transporttype\"=@transporttype, \"distance\"=@distance, \"estimatedtime\"=@estimatedtime WHERE \"id\"=@id;";
+        private const string SQL_UPDATE_FAVOURITE = "UPDATE public.\"tour\" SET \"isfavourite\"=@isfavourite WHERE \"id\"=@id;";
         private const string SQL_DELETE_ITEM = "DELETE FROM public.\"tour\" WHERE \"id\"=@id;";
 
         private IDatabase database;
@@ -47,6 +48,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             database.DefineParameter(insertCommand, "@distance", DbType.Int32, tourItem.Distance);
             database.DefineParameter(insertCommand, "@estimatedtime", DbType.Int32, tourItem.EstimatedTime);
             database.DefineParameter(insertCommand, "@routeimagepath", DbType.String, TourPlannerConfigurationManager.GetConfig().DefaultImageLocation);
+            database.DefineParameter(insertCommand, "@isfavourite", DbType.Boolean, false);
 
             return FindById(database.ExecuteScalar(insertCommand));
         }
@@ -107,7 +109,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
                         (TransportTypes)Enum.Parse(typeof(TransportTypes), reader["transporttype"].ToString()),
                         (int)reader["distance"],
                         (int)reader["estimatedtime"],
-                        (string)reader["routeimagepath"]
+                        (string)reader["routeimagepath"],
+                        (bool)reader["isfavourite"]
                     ));
                 }
             }
@@ -122,6 +125,23 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             database.DefineParameter(updateCommand, "@id", DbType.Int32, tourId);
 
             return database.ExecuteScalar(updateCommand);
+        }
+
+        public bool UpdateFavouriteStatus(int tourId, bool favouriteStatus)
+        {
+            DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_FAVOURITE);
+            database.DefineParameter(updateCommand, "@isfavourite", DbType.Boolean, favouriteStatus);
+            database.DefineParameter(updateCommand, "@id", DbType.Int32, tourId);
+
+            int updatedRows = database.ExecuteNonQuery(updateCommand);
+
+            // at least one row has been updated
+            if (updatedRows > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

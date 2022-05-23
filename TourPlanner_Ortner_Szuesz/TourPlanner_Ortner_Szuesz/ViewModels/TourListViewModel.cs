@@ -25,10 +25,12 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public TourLogListViewModel TourLogListViewModel { get; set; }
 
         public ObservableCollection<Tour> Tours { get; set; }
+        //public bool IsFavourite { get; set; }
 
         public ICommand AddTourCommand { get; }
         public ICommand UpdateTourCommand { get; set; }
         public ICommand DeleteTourCommand { get; }
+        public ICommand SetFavouriteTourCommand { get; set; }
 
         public Tour SelectedTour
         {
@@ -54,6 +56,12 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                     // update selected tour
                     UpdateTourCommand = new UpdateTourCommand(this, selectedTour);
                     RaisePropertyChangedEvent(nameof(UpdateTourCommand));
+
+                    // update favourite status
+                    SetFavouriteTourCommand = new SetFavouriteTourCommand(this, selectedTour);
+                    RaisePropertyChangedEvent(nameof(SetFavouriteTourCommand));
+
+                    MessageBox.Show(selectedTour.IsFavourite.ToString());
 
                     // load logs from selected tour
                     TourLogListViewModel.LoadDataFromSelectedTour(selectedTour);
@@ -155,5 +163,17 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             return isDeleted;
         }
         
+        public bool UpdateFavouriteStatus(Tour tourItem)
+        {
+            bool isUpdated = this.mediaManager.UpdateFavouriteStatus(tourItem.Id, !tourItem.IsFavourite);
+
+            // change favourite status of selected tour
+            if(isUpdated)
+            {
+                tourItem.IsFavourite = !tourItem.IsFavourite;
+            }
+
+            return isUpdated;
+        }
     }
 }
