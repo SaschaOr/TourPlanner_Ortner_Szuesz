@@ -185,6 +185,12 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             {
                 Tours.Add(tour);
             }
+
+        }
+
+        public void UpdateUIAfterImport()
+        {
+            RaisePropertyChangedEvent(nameof(Tours));
         }
     }
 }
