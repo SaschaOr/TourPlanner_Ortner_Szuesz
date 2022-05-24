@@ -24,10 +24,9 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 		new KeyValuePair<string, string>("EstimatedTime","EstimatedTime"),
 		new KeyValuePair<string, string>("RouteImagePath","RouteImagePath"),
 		new KeyValuePair<string, string>("RouteImage","RouteImage"),
-		new KeyValuePair<string, string>("IsFavourite","IsFavourite"),
-	};
+		new KeyValuePair<string, string>("IsFavourite","IsFavourite")};
 
-	public ObservableCollection<Tour> Import(string file)
+		public ObservableCollection<Tour> Import(string file)
 		{
 			ObservableCollection<Tour> tourList = new ObservableCollection<Tour>();
 			List<string> lines = File.ReadAllLines(file).ToList();
@@ -52,10 +51,21 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 					var value = values[colIndex];
 					var propType = prop.PropertyType;
 
-                    MessageBox.
-                    //if (propType == TransportTypes)
-                    prop.SetValue(obj, Convert.ChangeType(value, propType));
-                }
+					if (propType.IsEnum)
+					{
+						// convert string to transporttypes
+						prop.SetValue(obj, (TransportTypes)Enum.Parse(typeof(TransportTypes), value));
+					}
+					else if (propType.IsArray)
+					{
+						// image should be null -> loaded afterwards from file
+						prop.SetValue(obj, null);
+					}
+					else
+					{
+						prop.SetValue(obj, Convert.ChangeType(value, propType));
+					}
+				}
 
                 tourList.Add(obj);
 			});
