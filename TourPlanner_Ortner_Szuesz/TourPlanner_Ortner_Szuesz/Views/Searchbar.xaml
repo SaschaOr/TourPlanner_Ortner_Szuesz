@@ -12,10 +12,10 @@
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBox Grid.Column="0" FontSize="20" Margin="3" BorderThickness="1" VerticalAlignment="Center" BorderBrush="Black"/>
-        <Button Grid.Column="1" Margin="60">
+        <Button Grid.Column="1" Margin="10">
             <Image Source="../Resources/icons/loupe.png"/>
         </Button>
     </Grid>

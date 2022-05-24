@@ -10,10 +10,26 @@
 
   <ItemGroup>
     <None Remove="Resources\icons\favourite.png" />
+    <None Remove="Resources\icons\loupe.png" />
+    <None Remove="Resources\icons\pencil.png" />
+    <None Remove="Resources\icons\plus.png" />
+    <None Remove="Resources\icons\trash_can.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\icons\favourite.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icons\loupe.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icons\pencil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icons\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icons\trash_can.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
