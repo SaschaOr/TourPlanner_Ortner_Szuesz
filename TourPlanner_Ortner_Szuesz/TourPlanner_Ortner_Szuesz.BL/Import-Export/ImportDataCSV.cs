@@ -52,12 +52,12 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 					var value = values[colIndex];
 					var propType = prop.PropertyType;
 
-					MessageBox.
-					//if(propType == TransportTypes)
-					prop.SetValue(obj, Convert.ChangeType(value, propType));
-				}
+                    MessageBox.
+                    //if (propType == TransportTypes)
+                    prop.SetValue(obj, Convert.ChangeType(value, propType));
+                }
 
-				tourList.Add(obj);
+                tourList.Add(obj);
 			});
 
 			return tourList;

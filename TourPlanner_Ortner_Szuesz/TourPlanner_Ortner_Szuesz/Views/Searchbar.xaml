@@ -15,6 +15,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBox Grid.Column="0" FontSize="20" Margin="3" BorderThickness="1" VerticalAlignment="Center" BorderBrush="Black"/>
-        <Button Grid.Column="1" FontSize="20" Margin="3" BorderThickness="1" BorderBrush="Black">Search</Button>
+        <Button Grid.Column="1" Margin="60">
+            <Image Source="../Resources/icons/loupe.png"/>
+        </Button>
     </Grid>
 </UserControl>
