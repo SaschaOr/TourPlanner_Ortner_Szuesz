@@ -58,6 +58,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.csv");
 
             TourListViewModel.Tours = import.Import(path);
+            TourListViewModel.UpdateUIAfterImport();
         }
     }
 }

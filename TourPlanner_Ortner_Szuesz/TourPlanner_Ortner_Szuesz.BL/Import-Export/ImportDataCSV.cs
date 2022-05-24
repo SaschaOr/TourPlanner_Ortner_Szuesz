@@ -52,9 +52,20 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 					var value = values[colIndex];
 					var propType = prop.PropertyType;
 
-					MessageBox.
-					//if(propType == TransportTypes)
-					prop.SetValue(obj, Convert.ChangeType(value, propType));
+					if (propType.IsEnum)
+					{
+						// convert string to transporttypes
+						prop.SetValue(obj, (TransportTypes)Enum.Parse(typeof(TransportTypes), value));
+					}
+					else if(propType.IsArray)
+                    {
+						// image should be null -> loaded afterwards from file
+						prop.SetValue(obj, null);
+					}
+					else
+					{
+						prop.SetValue(obj, Convert.ChangeType(value, propType));
+					}
 				}
 
 				tourList.Add(obj);
