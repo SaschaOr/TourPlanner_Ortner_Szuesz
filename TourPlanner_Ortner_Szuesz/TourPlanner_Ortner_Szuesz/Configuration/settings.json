@@ -9,5 +9,6 @@
   "api-key": "vX1MVXWPd5rlVGG5x5r3GPGkuYJ8IPfw",
   "image-location": "Resources\\tours",
   "default-image-location": "Resources\\tours\\DefaultImage.PNG",
-  "report-location": "Resources\\reports"
+  "report-location": "Resources\\reports",
+  "export-location": "Resources\\exports"
 }

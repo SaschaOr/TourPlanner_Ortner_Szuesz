@@ -9,9 +9,9 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="22" VerticalAlignment="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Import">
+                <MenuItem Header="_Import" Command="{Binding ImportToursCommand}">
                 </MenuItem>
-                <MenuItem Header="_Export">
+                <MenuItem Header="_Export" Command="{Binding ExportToursCommand}">
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Options">

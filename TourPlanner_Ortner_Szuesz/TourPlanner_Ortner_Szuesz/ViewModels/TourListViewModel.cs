@@ -60,9 +60,6 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                     // update favourite status
                     SetFavouriteTourCommand = new SetFavouriteTourCommand(this, selectedTour);
                     RaisePropertyChangedEvent(nameof(SetFavouriteTourCommand));
-                    RaisePropertyChangedEvent(nameof(SelectedTour));
-
-                    MessageBox.Show(selectedTour.IsFavourite.ToString());
 
                     // load logs from selected tour
                     TourLogListViewModel.LoadDataFromSelectedTour(selectedTour);
@@ -174,7 +171,20 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 tourItem.IsFavourite = !tourItem.IsFavourite;
             }
 
+            RefillTourList();
+
             return isUpdated;
+        }
+
+        private void RefillTourList()
+        {
+            List<Tour> tmpList = new List<Tour>(Tours);
+            Tours.Clear();
+
+            foreach (Tour tour in tmpList)
+            {
+                Tours.Add(tour);
+            }
         }
     }
 }

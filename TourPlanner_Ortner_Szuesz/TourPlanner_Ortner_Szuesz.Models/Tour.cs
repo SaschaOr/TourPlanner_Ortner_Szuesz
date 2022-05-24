@@ -45,6 +45,11 @@ namespace TourPlanner_Ortner_Szuesz.Models
         {
             this.Name = name;
         }
+
+        public Tour()
+        {
+
+        }
         
     }
 }
