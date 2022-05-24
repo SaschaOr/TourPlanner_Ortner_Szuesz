@@ -40,6 +40,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
 
         public override async void Execute(object parameter)
         {
+            
             Tour tourItem = new Tour(TourDialogViewModel.TourId,
                 TourDialogViewModel.TourName,
                 TourDialogViewModel.TourDescription,

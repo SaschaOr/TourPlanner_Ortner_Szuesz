@@ -9,6 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\tours\jo.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\tours\jo.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.BL\TourPlanner_Ortner_Szuesz.BL.csproj" />
     <ProjectReference Include="..\TourPlanner_Ortner_Szuesz.Models\TourPlanner_Ortner_Szuesz.Models.csproj" />
   </ItemGroup>
@@ -24,9 +34,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\tours\DefaultImage.PNG">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\tours\jo.PNG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

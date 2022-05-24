@@ -9,7 +9,7 @@
 
         <Style TargetType="ListViewItem">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding IsFavourite}" Value="True">
+                <DataTrigger Binding="{Binding IsFavourite, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
                     <Setter Property="Foreground" Value="Goldenrod"></Setter>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding IsFavourite}" Value="False">

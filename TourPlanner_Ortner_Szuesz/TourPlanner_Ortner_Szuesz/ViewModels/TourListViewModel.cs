@@ -60,6 +60,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                     // update favourite status
                     SetFavouriteTourCommand = new SetFavouriteTourCommand(this, selectedTour);
                     RaisePropertyChangedEvent(nameof(SetFavouriteTourCommand));
+                    RaisePropertyChangedEvent(nameof(SelectedTour));
 
                     MessageBox.Show(selectedTour.IsFavourite.ToString());
 
