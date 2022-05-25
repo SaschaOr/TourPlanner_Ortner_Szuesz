@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.BL.PDF_Generation;
 
-namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
+namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Reports
 {
     public class GenerateSummarizedTourReportCommand : CommandBase
     {

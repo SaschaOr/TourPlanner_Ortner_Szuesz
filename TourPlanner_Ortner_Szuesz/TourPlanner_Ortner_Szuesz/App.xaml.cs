@@ -21,8 +21,9 @@ namespace TourPlanner_Ortner_Szuesz
             var tourListViewModel = new TourListViewModel(tourLogListViewModel);
             var routeViewModel = new RouteViewModel(tourListViewModel);
             var menuViewModel = new MenuViewModel(tourListViewModel, tourLogListViewModel);
+            var searchbarViewModel = new SearchbarViewModel(tourListViewModel);
 
-            var mainViewModel = new MainWindowViewModel(tourLogListViewModel, tourListViewModel, routeViewModel, menuViewModel);
+            var mainViewModel = new MainWindowViewModel(tourLogListViewModel, tourListViewModel, routeViewModel, menuViewModel, searchbarViewModel);
 
             var main = new MainWindow(mainViewModel);
 

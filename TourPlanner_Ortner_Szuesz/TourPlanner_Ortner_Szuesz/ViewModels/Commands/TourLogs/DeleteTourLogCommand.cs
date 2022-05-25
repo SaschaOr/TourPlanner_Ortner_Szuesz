@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
+namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.TourLogs
 {
     public class DeleteTourLogCommand : CommandBase
     {

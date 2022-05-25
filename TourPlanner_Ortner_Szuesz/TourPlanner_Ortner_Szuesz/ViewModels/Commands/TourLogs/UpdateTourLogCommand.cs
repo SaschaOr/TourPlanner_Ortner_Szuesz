@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Views;
 
-namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
+namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.TourLogs
 {
     public class UpdateTourLogCommand : CommandBase
     {

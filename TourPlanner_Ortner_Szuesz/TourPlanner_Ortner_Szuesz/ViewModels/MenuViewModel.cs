@@ -11,6 +11,8 @@ using TourPlanner_Ortner_Szuesz.BL.Import_Export;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
+using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Import_Export;
+using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Reports;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
 {
@@ -41,7 +43,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             return false;
         }
 
-        public void ExportData()
+        public void ExportDataCSV()
         {
             ObservableCollection<Tour> tours = TourListViewModel.Tours;
 
@@ -50,7 +52,16 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             export.Export(tours, path);
         }
 
-        public void ImportData()
+        public void ExportDataJSON()
+        {
+            ObservableCollection<Tour> tours = TourListViewModel.Tours;
+
+            ExportDataJSON export = new ExportDataJSON();
+            string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.json");
+            export.Export(tours, path);
+        }
+
+        public void ImportDataCSV()
         {
             TourListViewModel.Tours.Clear();
 
@@ -59,6 +70,20 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
             TourListViewModel.Tours = import.Import(path);
             TourListViewModel.UpdateUIAfterImport();
+        }
+
+        public void ImportDataJSON()
+        {
+            TourListViewModel.Tours.Clear();
+
+            // import data
+            ImportDataJSON import = new ImportDataJSON();
+            string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.json");
+            TourListViewModel.Tours = import.Import(path);
+            TourListViewModel.UpdateUIAfterImport();
+
+            // save data in database
+            ImportExportFactory.GetImportExportFactoryManager().ImportAllTours(TourListViewModel.Tours);
         }
     }
 }

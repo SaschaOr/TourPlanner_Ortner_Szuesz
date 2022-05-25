@@ -11,6 +11,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.DAO
         Tour AddNewItem(Tour tourItem);
         Tour UpdateItem(Tour tourItem);
         bool DeleteItem(Tour tourItem);
+        IEnumerable<Tour> GetSearchResults(string searchString);
         IEnumerable<Tour> GetItems();
         int SetRouteImagePath(int tourId, string path);
         bool UpdateFavouriteStatus(int tourId, bool favouriteStatus);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
+using TourPlanner_Ortner_Szuesz.ViewModels.Commands.TourLogs;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
 {

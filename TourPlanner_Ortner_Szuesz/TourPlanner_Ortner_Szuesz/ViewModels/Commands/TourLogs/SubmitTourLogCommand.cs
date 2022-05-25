@@ -8,7 +8,7 @@ using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Models.Enums;
 
-namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands
+namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.TourLogs
 {
     public class SubmitTourLogCommand : CommandBase
     {

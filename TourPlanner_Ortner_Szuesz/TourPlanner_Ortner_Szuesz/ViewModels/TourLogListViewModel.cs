@@ -8,6 +8,7 @@ using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
+using TourPlanner_Ortner_Szuesz.ViewModels.Commands.TourLogs;
 using TourPlanner_Ortner_Szuesz.Views;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels

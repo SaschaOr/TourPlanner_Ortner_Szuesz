@@ -21,6 +21,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private const string SQL_UPDATE_ITEM = "UPDATE public.\"tour\" SET \"name\"=@name, \"description\"=@description, \"startlocation\"=@startlocation, \"endlocation\"=@endlocation, \"transporttype\"=@transporttype, \"distance\"=@distance, \"estimatedtime\"=@estimatedtime WHERE \"id\"=@id;";
         private const string SQL_UPDATE_FAVOURITE = "UPDATE public.\"tour\" SET \"isfavourite\"=@isfavourite WHERE \"id\"=@id;";
         private const string SQL_DELETE_ITEM = "DELETE FROM public.\"tour\" WHERE \"id\"=@id;";
+        private const string SQL_SEARCH_ITEMS = "SELECT DISTINCT tour.* FROM \"tour\" LEFT JOIN \"tourlog\" ON tour.id = tourlog.tourid WHERE name iLIKE @searchString OR description iLIKE @searchString OR startlocation iLIKE @searchString OR endlocation iLIKE @searchString OR comment iLIKE @searchString;";
 
         private IDatabase database;
         public TourSqlDAO()
@@ -48,7 +49,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             database.DefineParameter(insertCommand, "@distance", DbType.Int32, tourItem.Distance);
             database.DefineParameter(insertCommand, "@estimatedtime", DbType.Int32, tourItem.EstimatedTime);
             database.DefineParameter(insertCommand, "@routeimagepath", DbType.String, TourPlannerConfigurationManager.GetConfig().DefaultImageLocation);
-            database.DefineParameter(insertCommand, "@isfavourite", DbType.Boolean, false);
+            database.DefineParameter(insertCommand, "@isfavourite", DbType.Boolean, tourItem.IsFavourite != null ? tourItem.IsFavourite : false);
 
             return FindById(database.ExecuteScalar(insertCommand));
         }
@@ -84,6 +85,14 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             }
 
             return false;
+        }
+
+        public IEnumerable<Tour> GetSearchResults(string searchString)
+        {
+            DbCommand searchCommand = database.CreateCommand(SQL_SEARCH_ITEMS);
+            database.DefineParameter(searchCommand, "@searchString", DbType.String, $"%{searchString}%");
+
+            return QueryToursFromDb(searchCommand);
         }
 
         public IEnumerable<Tour> GetItems()

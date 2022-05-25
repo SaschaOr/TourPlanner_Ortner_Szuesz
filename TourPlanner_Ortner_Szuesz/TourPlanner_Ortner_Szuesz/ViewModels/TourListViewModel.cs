@@ -13,6 +13,7 @@ using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
 using TourPlanner_Ortner_Szuesz.Views;
 using System.Drawing;
+using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
 {

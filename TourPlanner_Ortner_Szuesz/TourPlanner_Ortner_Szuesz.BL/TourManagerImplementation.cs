@@ -18,12 +18,18 @@ namespace TourPlanner_Ortner_Szuesz.BL
     public class TourManagerImplementation : ITourManager
     {
         private ITourDAO tourDAO = new TourSqlDAO();
+        private ITourLogDAO tourLogDAO = new TourLogSqlDAO();
 
 
         public IEnumerable<Tour> GetItems()
         {
             //ITourDAO tourDAO = DALFactory.CreateTourDAO();
             return tourDAO.GetItems();
+        }
+
+        public IEnumerable<Tour> GetSearchResults(string searchString)
+        {
+            return tourDAO.GetSearchResults(searchString);
         }
         public async Task<Tour> CreateItem(Tour tourItem)
         {
@@ -34,6 +40,24 @@ namespace TourPlanner_Ortner_Szuesz.BL
             tourItem = await SaveImageInFileSystem(tourItem);
 
             return tourItem;
+        }
+
+        public async Task<Tour> CreateItemAfterImport(Tour tourItem)
+        {
+            Tour newItem = tourDAO.AddNewItem(tourItem);
+            newItem = await SaveImageInFileSystem(newItem);
+
+            // tour has tour logs -> save them
+            if(tourItem.TourLogs.Any() && tourItem.TourLogs != null)
+            {
+                foreach (TourLog logItem in tourItem.TourLogs)
+                {
+                    logItem.TourId = newItem.Id;
+                    tourLogDAO.AddNewItem(logItem);
+                }
+            }
+
+            return newItem;
         }
 
         public async Task<Tour> UpdateItem(Tour tourItem)
