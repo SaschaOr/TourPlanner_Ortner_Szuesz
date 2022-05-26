@@ -22,11 +22,5 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 throw new ArgumentException("Invalid propery name: " + propertyName);
             }
         }
-
-        /*public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }*/
     }
 }

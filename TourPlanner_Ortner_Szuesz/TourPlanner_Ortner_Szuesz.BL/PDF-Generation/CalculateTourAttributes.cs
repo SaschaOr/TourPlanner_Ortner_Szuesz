@@ -11,7 +11,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
     public class CalculateTourAttributes
     {
         private const int DIFFICULTY_MAX_CHILD = 1;
-        private const int TOTAL_TIME_MAX_CHILD = 90;
+        private const int TOTAL_TIME_MAX_CHILD = 90 * 60;
         private const int DISTANCE_MAX_CHILD = 25;
 
         public int CalculatePopularity(ObservableCollection<TourLog> tourLogs)
@@ -19,7 +19,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
             return tourLogs.Count;
         }
 
-        public bool CalculateChildFriedliness(Tour tourItem, ObservableCollection<TourLog> tourLogs)
+        public bool CalculateChildFriendliness(Tour tourItem, ObservableCollection<TourLog> tourLogs)
         {
             // no recorded tour logs -> can not know, if child-friedly
             if (tourLogs.Count == 0)

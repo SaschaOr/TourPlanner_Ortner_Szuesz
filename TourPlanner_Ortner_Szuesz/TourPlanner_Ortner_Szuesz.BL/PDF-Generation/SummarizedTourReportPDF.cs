@@ -18,8 +18,13 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 {
     public class SummarizedTourReportPDF
     {
-        public void PrintSummarizedTourReport(ObservableCollection<Tour> tours)
+        public bool PrintSummarizedTourReport(ObservableCollection<Tour> tours)
         {
+            if(tours.Count <= 0)
+            {
+                return false;
+            }
+
             // get file path
             var config = TourPlannerConfigurationManager.GetConfig();
             string reportPath = Path.Combine(Directory.GetCurrentDirectory(), config.ReportLocation, "SummarizedTourReport.pdf");
@@ -90,14 +95,18 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
                 Cell content3 = new Cell(1, 1)
                         .Add(new Paragraph(tour.EndLocation));
 
+                double averageTime = calcValues.CalculateAverageTime(logs);
+
                 Cell content4 = new Cell(1, 1)
-                        .Add(new Paragraph(calcValues.CalculateAverageTime(logs).ToString()));
+                        .Add(new Paragraph(double.IsNaN(averageTime) ? "---" : averageTime.ToString()));
 
                 Cell content5 = new Cell(1, 1)
                         .Add(new Paragraph(tour.Distance.ToString()));
 
+                double averageRating = calcValues.CalculateAverageRating(logs);
+
                 Cell content6 = new Cell(1, 1)
-                        .Add(new Paragraph(calcValues.CalculateAverageRating(logs).ToString()));
+                        .Add(new Paragraph(double.IsNaN(averageRating) ? "---" : averageRating.ToString()));
 
                 tableTourLogs.AddCell(content1);
                 tableTourLogs.AddCell(content2);
@@ -111,6 +120,8 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
             
 
             tourDocument.Close();
+
+            return true;
         }
 
         private ObservableCollection<TourLog> FillTourLogList(int tourId)

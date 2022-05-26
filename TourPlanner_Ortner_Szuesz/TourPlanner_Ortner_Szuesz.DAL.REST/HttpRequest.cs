@@ -26,7 +26,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.REST
 		{
 			// unit = k (Kilometers)
 			var url = "http://www.mapquestapi.com/directions/v2/route?" +
-							$"key={apiKey}&from={tourItem.StartLocation}&to={tourItem.EndLocation}&routeType{GetTourTypeString(tourItem)}&unit=k";
+							$"key={apiKey}&from={tourItem.StartLocation}&to={tourItem.EndLocation}&routeType={GetTourTypeString(tourItem)}&unit=k";
 
 			var json = JObject.Parse(await httpClient.GetStringAsync(url));
 			tourItem.Distance = (int)json["route"]["distance"];

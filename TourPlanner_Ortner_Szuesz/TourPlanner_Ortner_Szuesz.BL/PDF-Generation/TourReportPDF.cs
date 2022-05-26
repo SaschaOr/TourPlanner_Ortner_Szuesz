@@ -21,11 +21,11 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 {
     public class TourReportPDF
     {
-        public void PrintTourReport(Tour tourItem, ObservableCollection<TourLog> tourLogs)
+        public bool PrintTourReport(Tour tourItem, ObservableCollection<TourLog> tourLogs)
         {
             if(tourItem == null)
             {
-                return;
+                return false;
             }
 
             // get file path
@@ -119,7 +119,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
                .Add(new Paragraph("Child-Friendliness"));
             Cell cell92 = new Cell(1, 1)
-               .Add(new Paragraph((calcValues.CalculateChildFriedliness(tourItem, tourLogs) ? "Yes" : "No")));
+               .Add(new Paragraph((calcValues.CalculateChildFriendliness(tourItem, tourLogs) ? "Yes" : "No")));
 
             table.AddCell(cell11);
             table.AddCell(cell12);
@@ -228,6 +228,8 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
             }
 
             tourDocument.Close();
+
+            return true;
         }
     }
 }

@@ -102,7 +102,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             }
         }
 
-        private byte[] GetImageFromFileSystem(String imagePath)
+        public byte[] GetImageFromFileSystem(String imagePath)
         {
             byte[] image;
 

@@ -79,7 +79,7 @@ namespace TourPlanner_Ortner_Szuesz.BL
             return tourDAO.UpdateFavouriteStatus(tourId, favouriteStatus);
         }
 
-        private async Task<Tour> GetDistanceAndTimeFromTour(Tour tourItem)
+        public async Task<Tour> GetDistanceAndTimeFromTour(Tour tourItem)
         {
             var httpRequest = new HttpRequest(new HttpClient());
 
@@ -87,15 +87,15 @@ namespace TourPlanner_Ortner_Szuesz.BL
             {
                 tourItem = await httpRequest.GetTourFromRequest(tourItem);
             }
-            catch (NullReferenceException)
+            catch (HttpRequestException)
             {
-                throw new NullReferenceException();
+                throw new HttpRequestException();
             }
 
             // mapquest api can not resolve location
             if(tourItem.Distance == 0 || tourItem.EstimatedTime == 0)
             {
-                throw new NullReferenceException();
+                throw new HttpRequestException();
             }
 
             return tourItem;
@@ -121,9 +121,9 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
                 return tourItem;
             }
-            catch(NullReferenceException)
+            catch(HttpRequestException)
             {
-                throw new NullReferenceException();
+                throw new HttpRequestException();
             }
         }
     }

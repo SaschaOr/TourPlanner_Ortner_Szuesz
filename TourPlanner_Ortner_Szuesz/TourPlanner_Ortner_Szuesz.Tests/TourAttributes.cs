@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using TourPlanner_Ortner_Szuesz.BL.PDF_Generation;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Models.Enums;
@@ -8,17 +9,17 @@ using TourPlanner_Ortner_Szuesz.Models.Enums;
 namespace TourPlanner_Ortner_Szuesz.Tests
 {
     [TestFixture]
-    public class Tests
+    public class TourAttributes
     {
         private CalculateTourAttributes calculate;
         private TourLog tourLogEasy, tourLogMedium, tourLogHard;
-        private ObservableCollection<TourLog> tourLogsEasyMedium;
-        private ObservableCollection<TourLog> tourLogsMediumHard;
-        Tour tourLong, tourShort;
+        private ObservableCollection<TourLog> tourLogsEasyMedium, tourLogsMediumHard, emptyTourLogs;
+        private Tour tourLong, tourShort;
 
         private const int POPULARITY_2 = 2;
-        private const bool NOT_CHILD_FRIENDLY = false;
-        private const bool CHILD_FRIEDLY = true;
+        private const double TIME_75_MIN = 75 * 60;
+        private const double DIFFICULTY_0POINT5 = 0.5;
+        private const double RATING_2 = 2;
 
         [SetUp]
         public void Setup()
@@ -31,6 +32,7 @@ namespace TourPlanner_Ortner_Szuesz.Tests
 
             tourLogsEasyMedium = new ObservableCollection<TourLog>();
             tourLogsMediumHard = new ObservableCollection<TourLog>();
+            emptyTourLogs = new ObservableCollection<TourLog>();
 
             tourLogsEasyMedium.Add(tourLogEasy);
             tourLogsEasyMedium.Add(tourLogMedium);
@@ -52,33 +54,73 @@ namespace TourPlanner_Ortner_Szuesz.Tests
         [Test]
         public void CalculateChildFriedliness_ToLongDistance_NotChildFriedly()
         {
-            bool isChildFriedly = calculate.CalculateChildFriedliness(tourLong, tourLogsMediumHard);
+            bool isChildFriendly = calculate.CalculateChildFriendliness(tourLong, tourLogsMediumHard);
 
-            Assert.IsFalse(isChildFriedly);
+            Assert.IsFalse(isChildFriendly);
         }
 
         [Test]
         public void CalculateChildFriedliness_AverageTimeToHigh_NotChildFriedly()
         {
-            bool isChildFriedly = calculate.CalculateChildFriedliness(tourLong, tourLogsMediumHard);
+            bool isChildFriendly = calculate.CalculateChildFriendliness(tourLong, tourLogsMediumHard);
 
-            Assert.IsFalse(isChildFriedly);
+            Assert.IsFalse(isChildFriendly);
         }
 
         [Test]
         public void CalculateChildFriedliness_AverageDifficultyToHigh_NotChildFriedly()
         {
-            bool isChildFriedly = calculate.CalculateChildFriedliness(tourLong, tourLogsMediumHard);
+            bool isChildFriendly = calculate.CalculateChildFriendliness(tourLong, tourLogsMediumHard);
 
-            Assert.IsFalse(isChildFriedly);
+            Assert.IsFalse(isChildFriendly);
         }
 
         [Test]
         public void CalculateChildFriedliness_EasyTourWithEasyTourLogs_ChildFriedly()
         {
-            bool isChildFriedly = calculate.CalculateChildFriedliness(tourShort, tourLogsEasyMedium);
+            bool isChildFriendly = calculate.CalculateChildFriendliness(tourShort, tourLogsEasyMedium);
 
-            Assert.IsTrue(isChildFriedly);
+            Assert.IsTrue(isChildFriendly);
+        }
+
+        [Test]
+        public void CalculateAverageTime_Time50MinAnd100Min_Results75Min()
+        {
+            double result = calculate.CalculateAverageTime(tourLogsEasyMedium);
+            
+            Assert.AreEqual(TIME_75_MIN, result);
+        }
+
+        [Test]
+        public void CalculateAverageDifficulty_EasyAndMedium_Results0Point5()
+        {
+            double result = calculate.CalculateAverageDifficulty(tourLogsEasyMedium);
+
+            Assert.AreEqual(DIFFICULTY_0POINT5, result);
+        }
+
+        [Test]
+        public void CalculateAverageRating_1And3_Results2()
+        {
+            double result = calculate.CalculateAverageRating(tourLogsEasyMedium);
+
+            Assert.AreEqual(RATING_2, result);
+        }
+
+        [Test]
+        public void CalculateAverageTime_NoTourLogs_ResultsNaN()
+        {
+            double results = calculate.CalculateAverageTime(emptyTourLogs);
+
+            Assert.IsNaN(results);
+        }
+
+        [Test]
+        public void CalculateChildFriendliness_NoTourLogs_NotChildFriedly()
+        {
+            bool isChildFriendly = calculate.CalculateChildFriendliness(tourShort, emptyTourLogs);
+
+            Assert.IsFalse(isChildFriendly);
         }
     }
 }
