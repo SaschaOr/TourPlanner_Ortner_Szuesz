@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,11 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
     {
         private static IImportExportManager importExportManager;
 
-        public static IImportExportManager GetImportExportFactoryManager()
+        public static IImportExportManager GetImportExportFactoryManager(ILogger logger)
         {
             if (importExportManager == null)
             {
-                importExportManager = new ImportExportManagerImplementation();
+                importExportManager = new ImportExportManagerImplementation(logger);
             }
             return importExportManager;
         }

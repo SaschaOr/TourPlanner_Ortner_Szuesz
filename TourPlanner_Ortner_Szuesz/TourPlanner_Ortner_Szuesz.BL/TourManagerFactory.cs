@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +12,20 @@ namespace TourPlanner_Ortner_Szuesz.BL
         private static ITourManager tourManager;
         private static ITourLogManager tourLogManager;
 
-        public static ITourManager GetTourFactoryManager()
+        public static ITourManager GetTourFactoryManager(ILogger logger)
         {
             if (tourManager == null)
             {
-                tourManager = new TourManagerImplementation();
+                tourManager = new TourManagerImplementation(logger);
             }
             return tourManager;
         }
 
-        public static ITourLogManager GetTourLogFactoryManager()
+        public static ITourLogManager GetTourLogFactoryManager(ILogger logger)
         {
             if (tourLogManager == null)
             {
-                tourLogManager = new TourLogManagerImplementation();
+                tourLogManager = new TourLogManagerImplementation(logger);
             }
             return tourLogManager;
         }

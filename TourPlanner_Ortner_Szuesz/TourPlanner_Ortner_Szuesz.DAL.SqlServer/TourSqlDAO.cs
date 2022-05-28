@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -14,6 +15,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 {
     public class TourSqlDAO : ITourDAO
     {
+        public ILogger Logger { get; }
+
         private const string SQL_FIND_BY_ID = "SELECT * FROM public.\"tour\" WHERE \"id\"=@id;";
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tour\";";
         private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tour\" (\"name\", \"description\", \"startlocation\", \"endlocation\",\"transporttype\", \"distance\", \"estimatedtime\", \"routeimagepath\", \"isfavourite\") VALUES (@name, @description, @startlocation, @endlocation, @transporttype, @distance, @estimatedtime, @routeimagepath, @isfavourite) RETURNING \"id\";";
@@ -24,8 +27,9 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private const string SQL_SEARCH_ITEMS = "SELECT DISTINCT tour.* FROM \"tour\" LEFT JOIN \"tourlog\" ON tour.id = tourlog.tourid WHERE name iLIKE @searchString OR description iLIKE @searchString OR startlocation iLIKE @searchString OR endlocation iLIKE @searchString OR comment iLIKE @searchString;";
 
         private IDatabase database;
-        public TourSqlDAO()
+        public TourSqlDAO(ILogger logger)
         {
+            Logger = logger;
             this.database = DALFactory.GetDatabase();
         }
 
@@ -68,6 +72,12 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 
             int updatedRows = database.ExecuteNonQuery(updateCommand);
 
+            if(updatedRows <= 0)
+            {
+                MessageBox.Show("Could not update tour! Please try again!");
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not update tour item [Id: {tourItem.Id}]");
+            }
+
             return FindById(tourItem.Id);
         }
 
@@ -79,12 +89,14 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             int deletedRows = database.ExecuteNonQuery(deleteCommand);
 
             // at least one row has been deleted
-            if (deletedRows > 0)
+            if (deletedRows <= 0)
             {
-                return true;
+                MessageBox.Show("Could not delete tour! Please try again!");
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not delete tour item [Id: {tourItem.Id}]");
+                return false;
             }
 
-            return false;
+            return true;
         }
 
         public IEnumerable<Tour> GetSearchResults(string searchString)
@@ -107,20 +119,28 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 
             using (IDataReader reader = database.ExecuteReader(command))
             {
-                while (reader.Read())
+                try
                 {
-                    tourList.Add(new Tour(
-                        (int)reader["id"],
-                        (string)reader["name"],
-                        (string)reader["description"],
-                        (string)reader["startlocation"],
-                        (string)reader["endlocation"],
-                        (TransportTypes)Enum.Parse(typeof(TransportTypes), reader["transporttype"].ToString()),
-                        (int)reader["distance"],
-                        (int)reader["estimatedtime"],
-                        (string)reader["routeimagepath"],
-                        (bool)reader["isfavourite"]
-                    ));
+                    while (reader.Read())
+                    {
+                        tourList.Add(new Tour(
+                            (int)reader["id"],
+                            (string)reader["name"],
+                            (string)reader["description"],
+                            (string)reader["startlocation"],
+                            (string)reader["endlocation"],
+                            (TransportTypes)Enum.Parse(typeof(TransportTypes), reader["transporttype"].ToString()),
+                            (int)reader["distance"],
+                            (int)reader["estimatedtime"],
+                            (string)reader["routeimagepath"],
+                            (bool)reader["isfavourite"]
+                        ));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not load tours! Error: {ex.Message}");
+                    Logger.LogCritical($"{DateTime.Now}: [FATAL] could not load tours from database. conversion error.");
                 }
             }
 
@@ -145,12 +165,14 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             int updatedRows = database.ExecuteNonQuery(updateCommand);
 
             // at least one row has been updated
-            if (updatedRows > 0)
+            if (updatedRows <= 0)
             {
-                return true;
+                MessageBox.Show("Could not update tour to favourite! Please try again!");
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not update tour item favourite status [Id: {tourId}]");
+                return false;
             }
 
-            return false;
+            return true;
         }
     }
 }

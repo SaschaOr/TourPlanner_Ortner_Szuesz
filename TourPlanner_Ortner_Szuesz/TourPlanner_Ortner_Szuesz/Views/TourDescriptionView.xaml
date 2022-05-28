@@ -11,8 +11,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -23,14 +23,14 @@
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Content="{Binding SelectedTour.Name}"/>
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Content="{Binding SelectedTour.Description}"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Start location"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.StartLocation}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.StartLocation}" IsReadOnly="True"/>
         <Label Grid.Row="3" Grid.Column="0" Content="End location"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedTour.EndLocation}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedTour.EndLocation}" IsReadOnly="True"/>
         <Label Grid.Row="4" Grid.Column="0" Content="Transport type"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedTour.TransportType}"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Distance"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedTour.Distance}"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Estimated time"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding SelectedTour.EstimatedTime}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedTour.TransportType}" IsReadOnly="True"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Distance (km)"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedTour.Distance}" IsReadOnly="True"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Estimated time (min)"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding SelectedTour.EstimatedTime}" IsReadOnly="True"/>
     </Grid>
 </UserControl>

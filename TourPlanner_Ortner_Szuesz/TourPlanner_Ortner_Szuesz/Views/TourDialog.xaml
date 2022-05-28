@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner_Ortner_Szuesz.Views"
         mc:Ignorable="d"
-        Title="TourDialog" Height="450" Width="400">
+        Title="Tour" Height="450" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
@@ -40,7 +40,7 @@
             <Label Grid.Row="3" Grid.Column="0" Content="Destination:"/>
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourEndLocation}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" Text="{Binding TourTransportType}">
+            <ComboBox Grid.Row="4" Grid.Column="1" SelectedIndex="{Binding ComboTransportTypeIndex}" Text="{Binding TourTransportType}">
                 <ComboBoxItem Content="Car"/>
                 <ComboBoxItem Content="Bicycle"/>
                 <ComboBoxItem Content="Walking"/>
@@ -56,8 +56,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0" Content="Submit" Command="{Binding SubmitTourCommand}"/>
-            <Button Grid.Column="1" Grid.Row="0" Content="Cancel"/>
+            <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Submit" Command="{Binding SubmitTourCommand}"/>
         </Grid>
     </Grid>
 </Window>

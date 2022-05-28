@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -21,9 +22,7 @@ namespace TourPlanner_Ortner_Szuesz.DAL.Common
         {
             //assemblyName = ConfigurationManager.AppSettings["DALSqlAssembly"];
             assemblyName = "TourPlanner_Ortner_Szuesz.DAL.SqlServer";
-            Console.WriteLine("Test1");
             dalAssembly = Assembly.Load(assemblyName);
-            Console.WriteLine("Test2");
         }
 
         // create database object with connection string from config

@@ -23,7 +23,6 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Import_Export
 
         public override void Execute(object parameter)
         {
-            ImportExportFactory.GetImportExportFactoryManager().DeleteAllTours();
             MenuViewModel.ImportDataJSON();
         }
     }

@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TourPlanner_Ortner_Szuesz.DAL.Common;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.Models;
@@ -16,10 +18,13 @@ namespace TourPlanner_Ortner_Szuesz.DAL.REST
     {
 		private readonly string apiKey = TourPlannerConfigurationManager.GetConfig().ApiKey;
 		private HttpClient httpClient;
+		
+		public ILogger Logger { get; }
 
-		public HttpRequest(HttpClient client)
+		public HttpRequest(HttpClient client, ILogger logger)
 		{
 			httpClient = client;
+			Logger = logger;
 		}
 
 		public async Task<Tour> GetTourFromRequest(Tour tourItem)
@@ -28,9 +33,18 @@ namespace TourPlanner_Ortner_Szuesz.DAL.REST
 			var url = "http://www.mapquestapi.com/directions/v2/route?" +
 							$"key={apiKey}&from={tourItem.StartLocation}&to={tourItem.EndLocation}&routeType={GetTourTypeString(tourItem)}&unit=k";
 
-			var json = JObject.Parse(await httpClient.GetStringAsync(url));
-			tourItem.Distance = (int)json["route"]["distance"];
-			tourItem.EstimatedTime = (int)json["route"]["time"];
+			try
+			{
+				var json = JObject.Parse(await httpClient.GetStringAsync(url));
+				tourItem.Distance = (int)json["route"]["distance"];
+				tourItem.EstimatedTime = (int)json["route"]["time"];
+			}
+			catch
+            {
+				MessageBox.Show("Could not get tour distance and time! Please try again!");
+				Logger.LogCritical($"{DateTime.Now}: [FATAL] could not get tour distance and estimated time from MapQuest API.");
+
+			}
 
 			return tourItem;
 		}
@@ -38,7 +52,20 @@ namespace TourPlanner_Ortner_Szuesz.DAL.REST
 		{
 			var url = "https://open.mapquestapi.com/staticmap/v5/map?" +
 					  $"key={apiKey}&start={tourItem.StartLocation}&end={tourItem.EndLocation}";
-			return await httpClient.GetByteArrayAsync(url);
+
+			byte[] image = null;
+
+			try
+			{
+				image = await httpClient.GetByteArrayAsync(url);
+			}
+			catch
+            {
+				MessageBox.Show("Could not get tour image! Please try again!");
+				Logger.LogCritical($"{DateTime.Now}: [FATAL] could not get tour image from MapQuest API.");
+			}
+
+			return image;
 		}
 
 		private string GetTourTypeString(Tour tourItem)

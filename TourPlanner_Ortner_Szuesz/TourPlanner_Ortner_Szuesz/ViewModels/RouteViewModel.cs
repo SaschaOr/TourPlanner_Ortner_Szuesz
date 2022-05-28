@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
     {
         public TourListViewModel TourListViewModel { get; set; }
 
-        public RouteViewModel(TourListViewModel tourListViewModel)
+        public RouteViewModel(TourListViewModel tourListViewModel, ILogger logger)
         {
             TourListViewModel = tourListViewModel;
         }

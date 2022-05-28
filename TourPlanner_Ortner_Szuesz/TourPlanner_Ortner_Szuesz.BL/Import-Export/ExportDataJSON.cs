@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,10 +13,22 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 {
     public class ExportDataJSON
     {
-        ITourLogManager mediaManager { get; set; }
+        public ILogger Logger { get; }
+        private ITourLogManager mediaManager { get; set; }
+
+        public ExportDataJSON(ILogger logger)
+        {
+            Logger = logger;
+        }
 
         public void Export(ObservableCollection<Tour> tours, string filePath)
         {
+            if(!File.Exists(filePath))
+            {
+                Logger.LogWarning($"{DateTime.Now}: [WARNING] file path for tour data export does not exist.");
+                return;
+            }
+
             FillTourLogsInTours(tours);
 
             var serialise = new JsonSerializer();
@@ -28,7 +41,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 
         private void FillTourLogsInTours(ObservableCollection<Tour> tours)
         {
-            mediaManager = TourManagerFactory.GetTourLogFactoryManager();
+            mediaManager = TourManagerFactory.GetTourLogFactoryManager(Logger);
 
             foreach (var tour in tours)
             {

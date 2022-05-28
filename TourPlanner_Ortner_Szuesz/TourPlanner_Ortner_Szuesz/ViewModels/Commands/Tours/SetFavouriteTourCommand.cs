@@ -11,33 +11,22 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours
     public class SetFavouriteTourCommand : CommandBase
     {
         public TourListViewModel TourListViewModel { get; }
-        public Tour TourItemUpdate { get; }
 
-        public SetFavouriteTourCommand(TourListViewModel tourListViewModel, Tour tourItemUpdate)
+        public SetFavouriteTourCommand(TourListViewModel tourListViewModel)
         {
             TourListViewModel = tourListViewModel;
-            TourItemUpdate = tourItemUpdate;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            bool toursAvailable = false;
-
-            if (TourListViewModel.Tours.Count > 0)
-            {
-                toursAvailable = true;
-            }
+            bool toursAvailable = TourListViewModel.CheckIfToursAvailable();
 
             return toursAvailable && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            if (!TourListViewModel.UpdateFavouriteStatus(TourItemUpdate))
-            {
-                MessageBox.Show("Something went wrong! Please try again!");
-                return;
-            }
+            TourListViewModel.UpdateFavouriteStatus();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,9 +18,16 @@ namespace TourPlanner_Ortner_Szuesz.BL
 {
     public class TourManagerImplementation : ITourManager
     {
-        private ITourDAO tourDAO = new TourSqlDAO();
-        private ITourLogDAO tourLogDAO = new TourLogSqlDAO();
+        public ILogger Logger { get; }
+        private ITourDAO tourDAO { get; }
+        private ITourLogDAO tourLogDAO { get; }
 
+        public TourManagerImplementation(ILogger logger)
+        {
+            Logger = logger;
+            tourDAO = new TourSqlDAO(Logger);
+            tourLogDAO = new TourLogSqlDAO(Logger);
+        }
 
         public IEnumerable<Tour> GetItems()
         {
@@ -81,7 +89,7 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
         public async Task<Tour> GetDistanceAndTimeFromTour(Tour tourItem)
         {
-            var httpRequest = new HttpRequest(new HttpClient());
+            var httpRequest = new HttpRequest(new HttpClient(), Logger);
 
             try
             {
@@ -103,7 +111,7 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
         private async Task<Tour> SaveImageInFileSystem(Tour tourItem)
         {
-            var httpRequest = new HttpRequest(new HttpClient());
+            var httpRequest = new HttpRequest(new HttpClient(), Logger);
 
             try
             {

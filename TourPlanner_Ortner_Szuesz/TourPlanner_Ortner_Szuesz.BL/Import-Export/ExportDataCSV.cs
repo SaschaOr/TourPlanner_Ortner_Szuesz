@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -12,6 +13,13 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 {
     public class ExportDataCSV
     {
+		public ILogger Logger { get; }
+
+        public ExportDataCSV(ILogger logger)
+        {
+			Logger = logger;
+        }
+
 		public void Export(ObservableCollection<Tour> tours, string file)
 		{
 			var lines = GetLines(tours);

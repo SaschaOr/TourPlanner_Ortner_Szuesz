@@ -14,6 +14,8 @@ using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
 using TourPlanner_Ortner_Szuesz.Views;
 using System.Drawing;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours;
+using Microsoft.Extensions.Logging;
+using TourPlanner_Ortner_Szuesz.BL.PDF_Generation;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
 {
@@ -26,12 +28,14 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public TourLogListViewModel TourLogListViewModel { get; set; }
 
         public ObservableCollection<Tour> Tours { get; set; }
-        //public bool IsFavourite { get; set; }
 
         public ICommand AddTourCommand { get; }
         public ICommand UpdateTourCommand { get; set; }
         public ICommand DeleteTourCommand { get; }
         public ICommand SetFavouriteTourCommand { get; set; }
+
+        public ILogger Logger { get; }
+        private const int DIVIDER_SECONDS_TO_MINUTES = 60;
 
         public Tour SelectedTour
         {
@@ -55,11 +59,11 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                     }
 
                     // update selected tour
-                    UpdateTourCommand = new UpdateTourCommand(this, selectedTour);
+                    UpdateTourCommand = new UpdateTourCommand(this);
                     RaisePropertyChangedEvent(nameof(UpdateTourCommand));
 
                     // update favourite status
-                    SetFavouriteTourCommand = new SetFavouriteTourCommand(this, selectedTour);
+                    SetFavouriteTourCommand = new SetFavouriteTourCommand(this);
                     RaisePropertyChangedEvent(nameof(SetFavouriteTourCommand));
 
                     // load logs from selected tour
@@ -69,21 +73,17 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         }
 
         // pass itemFactory over constructor parameter!
-        public TourListViewModel(TourLogListViewModel tourLogListViewModel)
+        public TourListViewModel(TourLogListViewModel tourLogListViewModel, ILogger logger)
         {
-            this.mediaManager = TourManagerFactory.GetTourFactoryManager();
+            Logger = logger;
+            this.mediaManager = TourManagerFactory.GetTourFactoryManager(logger);
             TourLogListViewModel = tourLogListViewModel;
 
             Tours = new ObservableCollection<Tour>();
 
             InitTourList();
 
-            AddTourCommand = new RelayCommand((_) =>
-            {
-                var dialog = new TourDialog(this, null);
-                dialog.ShowDialog();
-            });
-
+            AddTourCommand = new AddTourCommand(this);
             DeleteTourCommand = new DeleteTourCommand(this);
         }
 
@@ -98,6 +98,8 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         {
             foreach (Tour tour in this.mediaManager.GetItems())
             {
+                // change seconds to minutes
+                tour.EstimatedTime /= DIVIDER_SECONDS_TO_MINUTES;
                 Tours.Add(tour);
             }
         }
@@ -141,7 +143,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             SelectedTour = tourItem;
         }
         
-        public bool DeleteSelectedTour()
+        public void DeleteSelectedTour()
         {
             bool isDeleted = this.mediaManager.DeleteItem(SelectedTour);
 
@@ -158,23 +160,27 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                     File.Delete(path);
                 }
             }
-
-            return isDeleted;
+            else
+            {
+                MessageBox.Show("Error while deleting the selected tour! Please try again!");
+            }
         }
         
-        public bool UpdateFavouriteStatus(Tour tourItem)
+        public void UpdateFavouriteStatus()
         {
-            bool isUpdated = this.mediaManager.UpdateFavouriteStatus(tourItem.Id, !tourItem.IsFavourite);
+            bool isUpdated = this.mediaManager.UpdateFavouriteStatus(SelectedTour.Id, !SelectedTour.IsFavourite);
 
             // change favourite status of selected tour
             if(isUpdated)
             {
-                tourItem.IsFavourite = !tourItem.IsFavourite;
+                SelectedTour.IsFavourite = !SelectedTour.IsFavourite;
+            }
+            else
+            {
+                MessageBox.Show("Error while updating favourite status of the selected tour! Please try again!");
             }
 
             RefillTourList();
-
-            return isUpdated;
         }
 
         private void RefillTourList()
@@ -192,6 +198,40 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public void UpdateUIAfterImport()
         {
             RaisePropertyChangedEvent(nameof(Tours));
+        }
+
+        public void CreateSummarizedTourReport()
+        {
+            SummarizedTourReportPDF summarizedTourReportPDF = new SummarizedTourReportPDF(Logger);
+            summarizedTourReportPDF.PrintSummarizedTourReport(Tours);
+        }
+
+        public void CreateTourReport()
+        {
+            TourReportPDF tourReportPDF = new TourReportPDF(Logger);
+            tourReportPDF.PrintTourReport(SelectedTour, TourLogListViewModel.TourLogs);
+        }
+
+        public void OpenAddTourDialog()
+        {
+            var dialog = new TourDialog(this, true, Logger);
+            dialog.ShowDialog();
+        }
+
+        public void OpenUpdateTourDialog()
+        {
+            var dialog = new TourDialog(this, false, Logger);
+            dialog.ShowDialog();
+        }
+
+        public bool CheckIfToursAvailable()
+        {
+            if (Tours.Count > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -7,6 +7,7 @@ using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +22,13 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 {
     public class TourReportPDF
     {
+        public ILogger Logger { get; }
+
+        public TourReportPDF(ILogger logger)
+        {
+            Logger = logger;
+        }
+
         public bool PrintTourReport(Tour tourItem, ObservableCollection<TourLog> tourLogs)
         {
             if(tourItem == null)
@@ -30,8 +38,23 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 
             // get file path
             var config = TourPlannerConfigurationManager.GetConfig();
-            string reportPath = Path.Combine(Directory.GetCurrentDirectory(), config.ReportLocation, $"TourReport_{tourItem.Name.ToString()}.pdf");
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), config.ReportLocation);
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Logger.LogWarning($"{DateTime.Now}: [WARNING] directory path for tour report does not exist.");
+                return false;
+            }
+            string reportPath = Path.Combine(directoryPath, $"TourReport_{tourItem.Name.ToString()}.pdf");
+
             string imagePath = Path.Combine(Directory.GetCurrentDirectory(), tourItem.RouteImagePath);
+
+            // image does not exist
+            if (!File.Exists(imagePath))
+            {
+                Logger.LogWarning($"{DateTime.Now}: [WARNING] image path for tour report does not exist.");
+                return false;
+            }
 
             // calculate values
             CalculateTourAttributes calcValues = new CalculateTourAttributes();

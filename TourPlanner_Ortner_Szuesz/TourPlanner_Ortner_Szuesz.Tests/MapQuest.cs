@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.Extensions.Logging;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,12 +21,12 @@ namespace TourPlanner_Ortner_Szuesz.Tests
         private const int DISTANCE_WIEN_HOLLABRUNN = 56;
         private const int ESTIMATED_TIME_WIEN_HOLLABRUNN = 2603;
         private Tour tourItem, tourItemWalk, tourItemSameLocation;
-
+        private ILogger logger;
 
         [SetUp]
         public void Setup()
         {
-            manager = new TourManagerImplementation();
+            manager = new TourManagerImplementation(logger);
 
             tourItem = new Tour(1, "Wien-Hollabrunn", "Das ist eine Test Tour", "Wien", "Hollabrunn", TransportTypes.Car);
             tourItemWalk = new Tour(2, "Wien-Hollabrunn", "Das ist eine Test Tour", "Wien", "Hollabrunn", TransportTypes.Walking);

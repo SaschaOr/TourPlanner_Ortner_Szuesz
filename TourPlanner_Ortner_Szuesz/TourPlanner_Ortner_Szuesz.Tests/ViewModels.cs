@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.Extensions.Logging;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,22 +29,26 @@ namespace TourPlanner_Ortner_Szuesz.Tests
 
         private Tour tourItem;
         private TourLog tourLogItem, emptyTourLogItem;
+        private ILogger logger;
 
         [SetUp]
         public void Setup()
         {
             
-            tourLogListViewModel = new TourLogListViewModel();
-            tourListViewModel = new TourListViewModel(tourLogListViewModel);
-            menuViewModel = new MenuViewModel(tourListViewModel, tourLogListViewModel);
+            tourLogListViewModel = new TourLogListViewModel(logger);
+            tourListViewModel = new TourListViewModel(tourLogListViewModel, logger);
+            
+            menuViewModel = new MenuViewModel(tourListViewModel, tourLogListViewModel, logger);
 
             tourItem = new Tour(1, "Wien-Hollabrunn", "Das ist eine Test Tour", "Wien", "Hollabrunn", TransportTypes.Car);
+            tourListViewModel.SelectedTour = tourItem;
             tourLogItem = new TourLog(1, DateTime.Now, DifficultyTypes.easy, 6000, 1, "Das ist ein Test Tour Log", 1);
             emptyTourLogItem = null;
 
-            tourDialogViewModel = new TourDialogViewModel(tourListViewModel, tourItem, null);
-            tourLogDialogViewModel = new TourLogDialogViewModel(tourLogListViewModel, tourItem, tourLogItem, null);
-            tourLogDialogViewModelEmptyTourLog = new TourLogDialogViewModel(tourLogListViewModel, tourItem, emptyTourLogItem, null);
+            tourDialogViewModel = new TourDialogViewModel(tourListViewModel, false, null, logger);
+            tourLogDialogViewModel = new TourLogDialogViewModel(tourLogListViewModel, false, null, logger);
+            tourLogDialogViewModelEmptyTourLog = new TourLogDialogViewModel(tourLogListViewModel, false, null, logger);
+
         }
 
         [Test]

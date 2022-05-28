@@ -11,20 +11,15 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Reports
     public class GenerateTourReportCommand : CommandBase
     {
         public TourListViewModel TourListViewModel { get; }
-        public TourLogListViewModel TourLogListViewModel { get; }
 
-        private TourReportPDF tourReportPDF { get; set; }
-
-        public GenerateTourReportCommand(TourListViewModel tourListViewModel, TourLogListViewModel tourLogListViewModel)
+        public GenerateTourReportCommand(TourListViewModel tourListViewModel)
         {
             TourListViewModel = tourListViewModel;
-            TourLogListViewModel = tourLogListViewModel;
         }
 
         public override void Execute(object parameter)
         {
-            tourReportPDF = new TourReportPDF();
-            tourReportPDF.PrintTourReport(TourListViewModel.SelectedTour, TourLogListViewModel.TourLogs);
+            TourListViewModel.CreateTourReport();
         }
     }
 }

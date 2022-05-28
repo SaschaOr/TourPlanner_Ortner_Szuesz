@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,14 @@ namespace TourPlanner_Ortner_Szuesz.BL
 {
     public class TourLogManagerImplementation : ITourLogManager
     {
-        private ITourLogDAO tourLogDAO = new TourLogSqlDAO();
+        public ILogger Logger { get; }
+        private ITourLogDAO tourLogDAO { get; }
+
+        public TourLogManagerImplementation(ILogger logger)
+        {
+            Logger = logger;
+            tourLogDAO = new TourLogSqlDAO(Logger);
+        }
 
         public TourLog CreateItem(TourLog tourLogItem)
         {

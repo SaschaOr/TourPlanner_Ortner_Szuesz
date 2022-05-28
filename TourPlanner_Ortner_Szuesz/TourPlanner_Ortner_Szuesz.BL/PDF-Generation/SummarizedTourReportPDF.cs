@@ -4,6 +4,7 @@ using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,13 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 {
     public class SummarizedTourReportPDF
     {
+        public ILogger Logger { get; }
+
+        public SummarizedTourReportPDF(ILogger logger)
+        {
+            Logger = logger;
+        }
+
         public bool PrintSummarizedTourReport(ObservableCollection<Tour> tours)
         {
             if(tours.Count <= 0)
@@ -27,7 +35,15 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 
             // get file path
             var config = TourPlannerConfigurationManager.GetConfig();
-            string reportPath = Path.Combine(Directory.GetCurrentDirectory(), config.ReportLocation, "SummarizedTourReport.pdf");
+            string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), config.ReportLocation);
+
+            if(!Directory.Exists(directoryPath))
+            {
+                Logger.LogWarning($"{DateTime.Now}: [WARNING] directory path for summarized tour report does not exist.");
+                return false;
+            }
+
+            string reportPath = Path.Combine(directoryPath, "SummarizedTourReport.pdf");
 
             // calculate values
             CalculateTourAttributes calcValues = new CalculateTourAttributes();
@@ -127,7 +143,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
         private ObservableCollection<TourLog> FillTourLogList(int tourId)
         {
             ObservableCollection<TourLog> tourLogs = new ObservableCollection<TourLog>();
-            foreach (TourLog tourLog in TourManagerFactory.GetTourLogFactoryManager().GetItems(tourId))
+            foreach (TourLog tourLog in TourManagerFactory.GetTourLogFactoryManager(Logger).GetItems(tourId))
             {
                 tourLogs.Add(tourLog);
             }

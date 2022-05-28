@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,17 +13,25 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 {
     public class ImportExportManagerImplementation : IImportExportManager
     {
-        private IImportExportDAO dao = new ImportExportDAO();
+        public ILogger Logger { get; }
+        private IImportExportDAO importExportDAO { get; }
+
+        public ImportExportManagerImplementation(ILogger logger)
+        {
+            Logger = logger;
+            importExportDAO = new ImportExportDAO(Logger);
+        }
+
         public void DeleteAllTours()
         {
-            dao.DeleteAllTours();
+            importExportDAO.DeleteAllTours();
         }
 
         public void ImportAllTours(IEnumerable<Tour> tours)
         {
             foreach (Tour tour in tours)
             {
-                TourManagerFactory.GetTourFactoryManager().CreateItemAfterImport(tour);
+                TourManagerFactory.GetTourFactoryManager(Logger).CreateItemAfterImport(tour);
             }
         }
     }

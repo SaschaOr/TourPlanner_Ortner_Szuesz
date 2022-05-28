@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,9 +22,9 @@ namespace TourPlanner_Ortner_Szuesz.Views
     /// </summary>
     public partial class TourDialog : Window
     {
-        public TourDialog(TourListViewModel tourListViewModel, Tour tourItem)
+        public TourDialog(TourListViewModel tourListViewModel, bool tourToAdd, ILogger logger)
         {
-            DataContext = new TourDialogViewModel(tourListViewModel, tourItem, this.Close);
+            DataContext = new TourDialogViewModel(tourListViewModel, tourToAdd, this.Close, logger);
             InitializeComponent();
         }
     }

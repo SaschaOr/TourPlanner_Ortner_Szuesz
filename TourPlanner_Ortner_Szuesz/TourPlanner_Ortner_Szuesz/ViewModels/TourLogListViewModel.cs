@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
@@ -17,13 +19,16 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
     {
         private ITourLogManager mediaManager;
         public Tour SelectedTour { get; set; }
-        public TourLog selectedTourLog { get; set; }
+        private TourLog selectedTourLog { get; set; }
 
         public ObservableCollection<TourLog> TourLogs { get; set; }
 
         public ICommand AddTourLogCommand { get; set; }
         public ICommand UpdateTourLogCommand { get; set; }
         public ICommand DeleteTourLogCommand { get; set; }
+
+        public ILogger Logger { get; }
+        private const int DIVIDER_SECONDS_TO_MINUTES = 60;
 
         public TourLog SelectedTourLog
         {
@@ -36,7 +41,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 selectedTourLog = value;
                 RaisePropertyChangedEvent(nameof(SelectedTourLog));
 
-                UpdateTourLogCommand = new UpdateTourLogCommand(this, SelectedTour, selectedTourLog);
+                UpdateTourLogCommand = new UpdateTourLogCommand(this);
                 RaisePropertyChangedEvent(nameof(UpdateTourLogCommand));
 
                 DeleteTourLogCommand = new DeleteTourLogCommand(this);
@@ -44,9 +49,10 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             }
         }
 
-        public TourLogListViewModel()
+        public TourLogListViewModel(ILogger logger)
         {
-            this.mediaManager = TourManagerFactory.GetTourLogFactoryManager();
+            Logger = logger;
+            this.mediaManager = TourManagerFactory.GetTourLogFactoryManager(logger);
             TourLogs = new ObservableCollection<TourLog>();
         }
 
@@ -60,11 +66,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 FillTourLogList(tourItem.Id);
                 RaisePropertyChangedEvent(nameof(TourLogs));
 
-                AddTourLogCommand = new RelayCommand((_) =>
-                {
-                    var dialog = new TourLogDialog(this, tourItem, null);
-                    dialog.ShowDialog();
-                });
+                AddTourLogCommand = new AddTourLogCommand(this);
 
                 RaisePropertyChangedEvent(nameof(AddTourLogCommand));
             }
@@ -74,6 +76,8 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         {
             foreach (TourLog tourLog in this.mediaManager.GetItems(tourId))
             {
+                // change time to minutes
+                tourLog.TotalTime /= DIVIDER_SECONDS_TO_MINUTES;
                 TourLogs.Add(tourLog);
             }
         }
@@ -93,7 +97,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             SelectedTourLog = tourLogItem;
         }
 
-        public bool DeleteSelectedTourLog()
+        public void DeleteSelectedTourLog()
         {
             bool isDeleted = this.mediaManager.DeleteItem(SelectedTourLog);
 
@@ -102,8 +106,32 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
                 // remove from list
                 TourLogs.Remove(SelectedTourLog);
             }
+            else
+            {
+                MessageBox.Show("Error while deleting the selected tour log! Please try again!");
+            }
+        }
 
-            return isDeleted;
+        public void OpenAddTourLogDialog()
+        {
+            var dialog = new TourLogDialog(this, true, Logger);
+            dialog.ShowDialog();
+        }
+
+        public void OpenUpdateTourLogDialog()
+        {
+            var dialog = new TourLogDialog(this, false, Logger);
+            dialog.ShowDialog();
+        }
+
+        public bool CheckIfTourLogsAvailable()
+        {
+            if(TourLogs.Count > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

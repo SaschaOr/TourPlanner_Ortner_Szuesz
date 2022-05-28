@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TourPlanner_Ortner_Szuesz.Views"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="TourLogDialog" Height="450" Width="400">
+        Title="Tour Log" Height="450" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
@@ -34,12 +34,22 @@
 
             <Label Grid.Row="0" Grid.Column="0" Content="Date:"/>
             <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding TourLogDate, TargetNullValue={x:Static System:DateTime.Now}}"/>
-            <Label Grid.Row="1" Grid.Column="0" Content="Time:"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Time (min):"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TourLogTime}"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Difficulty:"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TourLogDifficulty}"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding ComboDifficultyTypeIndex}" Text="{Binding TourLogDifficulty}">
+                <ComboBoxItem Content="easy"/>
+                <ComboBoxItem Content="medium"/>
+                <ComboBoxItem Content="hard"/>
+            </ComboBox>
             <Label Grid.Row="3" Grid.Column="0" Content="Rating:"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourLogRating}"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" SelectedIndex="{Binding ComboRatingIndex}" Text="{Binding TourLogRating}">
+                <ComboBoxItem Content="1 - very good"/>
+                <ComboBoxItem Content="2 - good"/>
+                <ComboBoxItem Content="3 - ok"/>
+                <ComboBoxItem Content="4 - bad"/>
+                <ComboBoxItem Content="5 - very bad"/>
+            </ComboBox>
             <Label Grid.Row="4" Grid.Column="0" Content="Comment:"/>
             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TourLogComment}"/>
         </Grid>
@@ -53,8 +63,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0" Content="Submit" Command="{Binding SubmitTourLogCommand}"/>
-            <Button Grid.Column="1" Grid.Row="0" Content="Cancel"/>
+            <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Submit" Command="{Binding SubmitTourLogCommand}"/>
         </Grid>
     </Grid>
 </Window>

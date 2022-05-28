@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Windows;
 using TourPlanner_Ortner_Szuesz.DAL.Common;
 
 namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
@@ -53,7 +54,15 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private DbConnection CreateOpenConnection()
         {
             DbConnection connection = new NpgsqlConnection(this.connectionString);
-            connection.Open();
+            
+            try
+            {
+                connection.Open();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Can not connect to database! Error: {ex.Message}");
+            }
 
             return connection;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -24,10 +25,13 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         public ICommand ExportToursCommand { get; }
         public ICommand ImportToursCommand { get; }
 
-        public MenuViewModel(TourListViewModel tourListViewModel, TourLogListViewModel tourLogListViewModel)
+        public ILogger Logger { get; }
+
+        public MenuViewModel(TourListViewModel tourListViewModel, TourLogListViewModel tourLogListViewModel, ILogger logger)
         {
+            Logger = logger;
             TourListViewModel = tourListViewModel;
-            GenerateTourReportCommand = new GenerateTourReportCommand(tourListViewModel, tourLogListViewModel);
+            GenerateTourReportCommand = new GenerateTourReportCommand(tourListViewModel);
             GenerateSummarizedTourReportCommand = new GenerateSummarizedTourReportCommand(tourListViewModel);
             ExportToursCommand = new ExportToursCommand(this);
             ImportToursCommand = new ImportToursCommand(this);
@@ -47,7 +51,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         {
             ObservableCollection<Tour> tours = TourListViewModel.Tours;
 
-            ExportDataCSV export = new ExportDataCSV();
+            ExportDataCSV export = new ExportDataCSV(Logger);
             string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.csv");
             export.Export(tours, path);
         }
@@ -56,7 +60,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         {
             ObservableCollection<Tour> tours = TourListViewModel.Tours;
 
-            ExportDataJSON export = new ExportDataJSON();
+            ExportDataJSON export = new ExportDataJSON(Logger);
             string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.json");
             export.Export(tours, path);
         }
@@ -65,7 +69,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         {
             TourListViewModel.Tours.Clear();
 
-            ImportDataCSV import = new ImportDataCSV();
+            ImportDataCSV import = new ImportDataCSV(Logger);
             string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.csv");
 
             TourListViewModel.Tours = import.Import(path);
@@ -74,16 +78,19 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
         public void ImportDataJSON()
         {
+            // delete all tours in database
+            ImportExportFactory.GetImportExportFactoryManager(Logger).DeleteAllTours();
+
             TourListViewModel.Tours.Clear();
 
             // import data
-            ImportDataJSON import = new ImportDataJSON();
+            ImportDataJSON import = new ImportDataJSON(Logger);
             string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.json");
             TourListViewModel.Tours = import.Import(path);
             TourListViewModel.UpdateUIAfterImport();
 
             // save data in database
-            ImportExportFactory.GetImportExportFactoryManager().ImportAllTours(TourListViewModel.Tours);
+            ImportExportFactory.GetImportExportFactoryManager(Logger).ImportAllTours(TourListViewModel.Tours);
         }
     }
 }

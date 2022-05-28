@@ -18,23 +18,14 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.TourLogs
 
         public override bool CanExecute(object? parameter)
         {
-            bool tourLogsAvailable = false;
-
-            if (TourLogListViewModel.TourLogs.Count > 0)
-            {
-                tourLogsAvailable = true;
-            }
+            bool tourLogsAvailable = TourLogListViewModel.CheckIfTourLogsAvailable(); ;
 
             return tourLogsAvailable && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            if (!TourLogListViewModel.DeleteSelectedTourLog())
-            {
-                MessageBox.Show("Something went wrong! Please try again!");
-                return;
-            }
+            TourLogListViewModel.DeleteSelectedTourLog();
         }
     }
 }

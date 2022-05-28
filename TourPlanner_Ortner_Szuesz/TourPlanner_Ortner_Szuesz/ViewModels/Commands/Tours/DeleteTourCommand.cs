@@ -11,26 +11,21 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours
 	{
 		public TourListViewModel TourListViewModel { get; }
 
-		public DeleteTourCommand(TourListViewModel tourListViewModel) {
+		public DeleteTourCommand(TourListViewModel tourListViewModel)
+		{
 			TourListViewModel = tourListViewModel; 
 		}
 
-		public override bool CanExecute(object? parameter) {
-			bool toursAvailable = false;
-
-			if(TourListViewModel.Tours.Count > 0)
-            {
-				toursAvailable = true;
-            }
+		public override bool CanExecute(object? parameter)
+		{
+			bool toursAvailable = TourListViewModel.CheckIfToursAvailable();
 
 			return toursAvailable && base.CanExecute(parameter);
 		}
 
-		public override void Execute(object? parameter) {
-			if (!TourListViewModel.DeleteSelectedTour()) {
-				MessageBox.Show("Something went wrong! Please try again!"); 
-				return;
-			}
+		public override void Execute(object? parameter)
+		{
+			TourListViewModel.DeleteSelectedTour();
 		}
 	}
 }

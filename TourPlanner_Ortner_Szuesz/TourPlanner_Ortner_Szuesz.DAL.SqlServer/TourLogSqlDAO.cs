@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TourPlanner_Ortner_Szuesz.DAL.Common;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
 using TourPlanner_Ortner_Szuesz.Models;
@@ -14,6 +16,8 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 {
     public class TourLogSqlDAO : ITourLogDAO
     {
+        public ILogger Logger { get; }
+
         private const string SQL_INSERT_NEW_ITEM = "INSERT INTO public.\"tourlog\" (\"date\", \"difficulty\", \"totaltime\", \"rating\",\"comment\",\"tourid\") VALUES (@date, @difficulty, @totaltime, @rating, @comment, @tourid) RETURNING \"id\";";
         private const string SQL_FIND_BY_ID = "SELECT * FROM public.\"tourlog\" WHERE \"id\"=@id;";
         private const string SQL_GET_ALL_ITEMS = "SELECT * FROM public.\"tourlog\" WHERE \"tourid\"=@tourid;";
@@ -21,8 +25,9 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
         private const string SQL_DELETE_ITEM = "DELETE FROM public.\"tourlog\" WHERE \"id\"=@id;";
 
         private IDatabase database;
-        public TourLogSqlDAO()
+        public TourLogSqlDAO(ILogger logger)
         {
+            Logger = logger;
             this.database = DALFactory.GetDatabase();
         }
 
@@ -51,6 +56,12 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 
             int updatedRows = database.ExecuteNonQuery(updateCommand);
 
+            if(updatedRows <= 0)
+            {
+                MessageBox.Show("Could not update tour log! Please try again!");
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not update tour log item [Id: {tourLogItem.Id}]");
+            }
+
             return FindById(tourLogItem.Id);
         }
 
@@ -62,12 +73,15 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
             int deletedRows = database.ExecuteNonQuery(deleteCommand);
 
             // at least one row has been deleted
-            if (deletedRows > 0)
+            if (deletedRows <= 0)
             {
-                return true;
+                MessageBox.Show("Could not delete tour log! Please try again!");
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not delete tour log item [Id: {tourLogItem.Id}]");
+                return false;
             }
+            else
 
-            return false;
+            return true;
         }
 
         public TourLog FindById(int tourLogId)
@@ -92,17 +106,25 @@ namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 
             using (IDataReader reader = database.ExecuteReader(command))
             {
-                while (reader.Read())
+                try
                 {
-                    tourLogList.Add(new TourLog(
-                        (int)reader["id"],
-                        Convert.ToDateTime(reader["date"]),
-                        (DifficultyTypes)Enum.Parse(typeof(DifficultyTypes), reader["difficulty"].ToString()),
-                        (int)reader["totaltime"],
-                        (int)reader["rating"],
-                        (string)reader["comment"],
-                        (int)reader["tourid"]
-                    ));
+                    while (reader.Read())
+                    {
+                        tourLogList.Add(new TourLog(
+                            (int)reader["id"],
+                            Convert.ToDateTime(reader["date"]),
+                            (DifficultyTypes)Enum.Parse(typeof(DifficultyTypes), reader["difficulty"].ToString()),
+                            (int)reader["totaltime"],
+                            (int)reader["rating"],
+                            (string)reader["comment"],
+                            (int)reader["tourid"]
+                        ));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Could not load tour logs! Error: {ex.Message}");
+                    Logger.LogCritical($"{DateTime.Now}: [FATAL] could not load tour logs from database. conversion error.");
                 }
             }
 

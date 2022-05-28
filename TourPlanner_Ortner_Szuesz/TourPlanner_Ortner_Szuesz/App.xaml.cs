@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -17,11 +18,20 @@ namespace TourPlanner_Ortner_Szuesz
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            var tourLogListViewModel = new TourLogListViewModel();
-            var tourListViewModel = new TourListViewModel(tourLogListViewModel);
-            var routeViewModel = new RouteViewModel(tourListViewModel);
-            var menuViewModel = new MenuViewModel(tourListViewModel, tourLogListViewModel);
-            var searchbarViewModel = new SearchbarViewModel(tourListViewModel);
+            // logging
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            });
+
+            var logger = loggerFactory.CreateLogger("TourPlanner_Ortner_Szuesz");
+
+            // view models
+            var tourLogListViewModel = new TourLogListViewModel(logger);
+            var tourListViewModel = new TourListViewModel(tourLogListViewModel, logger);
+            var routeViewModel = new RouteViewModel(tourListViewModel, logger);
+            var menuViewModel = new MenuViewModel(tourListViewModel, tourLogListViewModel, logger);
+            var searchbarViewModel = new SearchbarViewModel(tourListViewModel, logger);
 
             var mainViewModel = new MainWindowViewModel(tourLogListViewModel, tourListViewModel, routeViewModel, menuViewModel, searchbarViewModel);
 

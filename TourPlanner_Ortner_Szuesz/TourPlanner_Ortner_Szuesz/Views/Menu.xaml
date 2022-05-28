@@ -22,8 +22,6 @@
                     </MenuItem>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Help">
-            </MenuItem>
         </Menu>
     </DockPanel>
     

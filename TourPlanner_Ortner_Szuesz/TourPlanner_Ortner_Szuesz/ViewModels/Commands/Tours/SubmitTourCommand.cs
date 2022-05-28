@@ -12,66 +12,30 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours
 {
     public class SubmitTourCommand : CommandBase
     {
-        public TourListViewModel TourListViewModel { get; }
         public TourDialogViewModel TourDialogViewModel { get; }
-        public bool CreateTour { get; set; }
 
-        public SubmitTourCommand(TourListViewModel tourListViewMode, TourDialogViewModel tourDialogViewModel, bool createTour)
+        public SubmitTourCommand(TourDialogViewModel tourDialogViewModel)
         {
-            TourListViewModel = tourListViewMode;
             TourDialogViewModel = tourDialogViewModel;
-            CreateTour = createTour;
         }
 
         public override bool CanExecute(object parameter)
         {
-            bool fieldsAreNotNull = true;
+            bool validateInput = TourDialogViewModel.ValidateInput(); 
 
-            if(string.IsNullOrEmpty(TourDialogViewModel.TourName)
-                || string.IsNullOrEmpty(TourDialogViewModel.TourDescription)
-                || string.IsNullOrEmpty(TourDialogViewModel.TourStartLocation)
-                || string.IsNullOrEmpty(TourDialogViewModel.TourEndLocation))
-            {
-                fieldsAreNotNull = false;
-            }
-
-            return fieldsAreNotNull && base.CanExecute(parameter);
+            return validateInput && base.CanExecute(parameter);
         }
 
         public override async void Execute(object parameter)
         {
-            
-            Tour tourItem = new Tour(TourDialogViewModel.TourId,
-                TourDialogViewModel.TourName,
-                TourDialogViewModel.TourDescription,
-                TourDialogViewModel.TourStartLocation,
-                TourDialogViewModel.TourEndLocation,
-                (TransportTypes)Enum.Parse(typeof(TransportTypes), TourDialogViewModel.TourTransportType));
-
-            try
+            if(TourDialogViewModel.TourToAdd)
             {
-                if(CreateTour)
-                {
-                    // create tour
-                    tourItem = await TourManagerFactory.GetTourFactoryManager().CreateItem(tourItem);
-                    TourListViewModel.AddNewTourToList(tourItem);
-                }
-                else
-                {
-                    // update tour
-                    // ERROR PREVENTION WHEN EG. GATEWAY TIMEOUT FROM MAPQUEST
-                    tourItem = await TourManagerFactory.GetTourFactoryManager().UpdateItem(tourItem);
-                    TourListViewModel.UpdateTourList(tourItem);
-                }
+                TourDialogViewModel.AddNewTourItem();
             }
-            catch(NullReferenceException)
+            else
             {
-                MessageBox.Show("Something went wrong. Please check your inputs!");
-                throw new NullReferenceException(); // weglassen?
-                return;
+                TourDialogViewModel.UpdateTourItem();
             }
-
-            TourDialogViewModel.Close();
         }
     }
 }

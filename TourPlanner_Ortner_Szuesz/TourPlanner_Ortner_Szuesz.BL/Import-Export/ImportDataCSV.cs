@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,13 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
         new KeyValuePair<string, string>("RouteImagePath","RouteImagePath"),
         new KeyValuePair<string, string>("RouteImage","RouteImage"),
         new KeyValuePair<string, string>("IsFavourite","IsFavourite")};
+
+        public ILogger Logger { get; }
+
+        public ImportDataCSV(ILogger logger)
+        {
+            Logger = logger;
+        }
 
         public ObservableCollection<Tour> Import(string file)
         {

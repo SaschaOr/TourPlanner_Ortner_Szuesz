@@ -11,8 +11,6 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Reports
     {
         public TourListViewModel TourListViewModel { get; }
 
-        private SummarizedTourReportPDF summarizedTourReportPDF { get; set; }
-
         public GenerateSummarizedTourReportCommand(TourListViewModel tourListViewModel)
         {
             TourListViewModel = tourListViewModel;
@@ -20,8 +18,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Reports
 
         public override void Execute(object parameter)
         {
-            summarizedTourReportPDF = new SummarizedTourReportPDF();
-            summarizedTourReportPDF.PrintSummarizedTourReport(TourListViewModel.Tours);
+            TourListViewModel.CreateSummarizedTourReport();
         }
     }
 }
