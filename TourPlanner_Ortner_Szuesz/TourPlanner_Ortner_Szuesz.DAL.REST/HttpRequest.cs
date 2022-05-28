@@ -26,12 +26,13 @@ namespace TourPlanner_Ortner_Szuesz.DAL.REST
 
 		public async Task<Tour> GetTourFromRequest(Tour tourItem)
 		{
-			// unit = k (Kilometers)
-			var url = "http://www.mapquestapi.com/directions/v2/route?" +
-							$"key={apiKey}&from={tourItem.StartLocation}&to={tourItem.EndLocation}&routeType={GetTourTypeString(tourItem)}&unit=k";
-
+			
 			try
 			{
+				// unit = k (Kilometers)
+				var url = "http://www.mapquestapi.com/directions/v2/route?" +
+								$"key={apiKey}&from={tourItem.StartLocation}&to={tourItem.EndLocation}&routeType={GetTourTypeString(tourItem)}&unit=k";
+
 				var json = JObject.Parse(await httpClient.GetStringAsync(url));
 				tourItem.Distance = (int)json["route"]["distance"];
 				tourItem.EstimatedTime = (int)json["route"]["time"];
@@ -47,13 +48,12 @@ namespace TourPlanner_Ortner_Szuesz.DAL.REST
 		}
 		public async Task<byte[]> GetTourImageFromRequest(Tour tourItem)
 		{
-			var url = "https://open.mapquestapi.com/staticmap/v5/map?" +
-					  $"key={apiKey}&start={tourItem.StartLocation}&end={tourItem.EndLocation}";
-
 			byte[] image = null;
 
 			try
 			{
+				var url = "https://open.mapquestapi.com/staticmap/v5/map?" +
+						 $"key={apiKey}&start={tourItem.StartLocation}&end={tourItem.EndLocation}";
 				image = await httpClient.GetByteArrayAsync(url);
 			}
 			catch
