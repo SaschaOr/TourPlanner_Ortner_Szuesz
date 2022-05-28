@@ -17,7 +17,7 @@ namespace TourPlanner_Ortner_Szuesz.Tests
     public class ViewModels
     {
         private TourListViewModel tourListViewModel;
-        private TourLogListViewModel tourLogListViewModel;
+        private TourLogListViewModel tourLogListViewModel, tourLogListViewModelEmpty;
         private MenuViewModel menuViewModel;
 
         private TourDialogViewModel tourDialogViewModel;
@@ -36,6 +36,7 @@ namespace TourPlanner_Ortner_Szuesz.Tests
         {
             
             tourLogListViewModel = new TourLogListViewModel(logger);
+            tourLogListViewModelEmpty = new TourLogListViewModel(logger);
             tourListViewModel = new TourListViewModel(tourLogListViewModel, logger);
             
             menuViewModel = new MenuViewModel(tourListViewModel, tourLogListViewModel, logger);
@@ -45,9 +46,14 @@ namespace TourPlanner_Ortner_Szuesz.Tests
             tourLogItem = new TourLog(1, DateTime.Now, DifficultyTypes.easy, 6000, 1, "Das ist ein Test Tour Log", 1);
             emptyTourLogItem = null;
 
+            tourLogListViewModel.SelectedTour = tourItem;
+            tourLogListViewModel.SelectedTourLog = tourLogItem;
+            tourLogListViewModelEmpty.SelectedTour = tourItem;
+            tourLogListViewModelEmpty.SelectedTourLog = emptyTourLogItem;
+
             tourDialogViewModel = new TourDialogViewModel(tourListViewModel, false, null, logger);
             tourLogDialogViewModel = new TourLogDialogViewModel(tourLogListViewModel, false, null, logger);
-            tourLogDialogViewModelEmptyTourLog = new TourLogDialogViewModel(tourLogListViewModel, false, null, logger);
+            tourLogDialogViewModelEmptyTourLog = new TourLogDialogViewModel(tourLogListViewModel, true, null, logger);
 
         }
 

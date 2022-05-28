@@ -123,6 +123,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             catch
             {
                 image = null;
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not find tour image in file system.");
             }
 
             return image;
