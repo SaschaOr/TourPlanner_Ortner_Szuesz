@@ -1,15 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Models.Enums;
-using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours;
 
 namespace TourPlanner_Ortner_Szuesz.ViewModels
@@ -137,6 +132,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
         private Tour GetTourItemFromTextFields()
         {
             Tour tourItem;
+
             try
             {
                 tourItem = new Tour(TourId,

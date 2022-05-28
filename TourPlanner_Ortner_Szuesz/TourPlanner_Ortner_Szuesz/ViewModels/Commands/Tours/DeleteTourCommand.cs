@@ -1,10 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows;
-using TourPlanner_Ortner_Szuesz.ViewModels;
-
-
-namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours
+﻿namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours
 {
 
 	public class DeleteTourCommand : CommandBase

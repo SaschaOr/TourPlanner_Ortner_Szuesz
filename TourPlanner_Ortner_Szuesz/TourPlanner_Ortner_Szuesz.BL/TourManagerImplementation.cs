@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TourPlanner_Ortner_Szuesz.DAL.Common;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
 using TourPlanner_Ortner_Szuesz.DAL.REST;
 using TourPlanner_Ortner_Szuesz.DAL.SqlServer;
 using TourPlanner_Ortner_Szuesz.Models;
-using TourPlanner_Ortner_Szuesz.Models.Enums;
 
 namespace TourPlanner_Ortner_Szuesz.BL
 {
@@ -31,7 +28,6 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
         public IEnumerable<Tour> GetItems()
         {
-            //ITourDAO tourDAO = DALFactory.CreateTourDAO();
             return tourDAO.GetItems();
         }
 
@@ -41,8 +37,6 @@ namespace TourPlanner_Ortner_Szuesz.BL
         }
         public async Task<Tour> CreateItem(Tour tourItem)
         {
-            //ITourDAO tourDAO = DALFactory.CreateTourDAO
-            
             tourItem = await GetDistanceAndTimeFromTour(tourItem);
             tourItem = tourDAO.AddNewItem(tourItem);
             tourItem = await SaveImageInFileSystem(tourItem);
@@ -95,15 +89,16 @@ namespace TourPlanner_Ortner_Szuesz.BL
             {
                 tourItem = await httpRequest.GetTourFromRequest(tourItem);
             }
-            catch (HttpRequestException)
+            catch (Exception ex)
             {
-                throw new HttpRequestException();
+                MessageBox.Show($"Could not get tour information. Error: {ex.Message}");
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not get tour distance and time from tour [Id: {tourItem.Id}]");
             }
 
             // mapquest api can not resolve location
             if(tourItem.Distance == 0 || tourItem.EstimatedTime == 0)
             {
-                throw new HttpRequestException();
+                Logger.LogWarning($"{DateTime.Now}: [WARNING] start and destination of tour are the same [Id: {tourItem.Id}]");
             }
 
             return tourItem;
@@ -129,10 +124,13 @@ namespace TourPlanner_Ortner_Szuesz.BL
 
                 return tourItem;
             }
-            catch(HttpRequestException)
+            catch(Exception ex)
             {
-                throw new HttpRequestException();
+                MessageBox.Show($"Could not get tour image. Error: {ex.Message}");
+                Logger.LogError($"{DateTime.Now}: [ERROR] could not get tour image from MapQuest API [Id: {tourItem.Id}]");
             }
+
+            return null;
         }
     }
 }

@@ -36,13 +36,13 @@
             </Button>
         </Grid>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding TourLogs}" SelectedItem="{Binding SelectedTourLog}" CanUserSortColumns="True" CanUserReorderColumns="True" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding TourLogs, Mode=TwoWay}" SelectedItem="{Binding SelectedTourLog, Mode=TwoWay}" CanUserSortColumns="True" CanUserReorderColumns="True" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='{}{0:ddd, dd.MM.yyyy}'}" Width="20*" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Time" Binding="{Binding TotalTime}" Width="20*" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="20*" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Width="20*" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Comment" Binding="{Binding Comment}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='{}{0:ddd, dd.MM.yyyy}', Mode=OneWay}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Time" Binding="{Binding TotalTime, Mode=OneWay}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty, Mode=OneWay}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Rating" Binding="{Binding Rating, Mode=OneWay}" Width="20*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Comment" Binding="{Binding Comment, Mode=OneWay}" Width="20*" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -1,17 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.BL.Import_Export;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.Models;
-using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Import_Export;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Reports;
 
@@ -76,7 +70,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             TourListViewModel.UpdateUIAfterImport();
         }
 
-        public void ImportDataJSON()
+        public async Task<Tour> ImportDataJSON()
         {
             // delete all tours in database
             ImportExportFactory.GetImportExportFactoryManager(Logger).DeleteAllTours();
@@ -86,11 +80,17 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             // import data
             ImportDataJSON import = new ImportDataJSON(Logger);
             string path = Path.Combine(Directory.GetCurrentDirectory(), TourPlannerConfigurationManager.GetConfig().ExportLocation, "tour_export.json");
-            TourListViewModel.Tours = import.Import(path);
-            TourListViewModel.UpdateUIAfterImport();
+            ObservableCollection<Tour> importedTours = import.Import(path);
+            //TourListViewModel.UpdateUIAfterImport();
 
             // save data in database
-            ImportExportFactory.GetImportExportFactoryManager(Logger).ImportAllTours(TourListViewModel.Tours);
+            Tour tourItem = await ImportExportFactory.GetImportExportFactoryManager(Logger).ImportAllTours(importedTours);
+
+            // get new tour items
+            TourListViewModel.FillTourList();
+            TourListViewModel.UpdateUIAfterImport();
+
+            return tourItem;
         }
     }
 }

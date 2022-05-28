@@ -16,7 +16,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding DialogHeading}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding DialogHeading, Mode=OneWay}"/>
 
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
@@ -32,15 +32,15 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TourName}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TourName, Mode=TwoWay}"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Description:"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TourDescription}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TourDescription, Mode=TwoWay}"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Start:"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TourStartLocation}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TourStartLocation, Mode=TwoWay}"/>
             <Label Grid.Row="3" Grid.Column="0" Content="Destination:"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourEndLocation}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TourEndLocation, Mode=TwoWay}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" SelectedIndex="{Binding ComboTransportTypeIndex}" Text="{Binding TourTransportType}">
+            <ComboBox Grid.Row="4" Grid.Column="1" SelectedIndex="{Binding ComboTransportTypeIndex, Mode=TwoWay}" Text="{Binding TourTransportType, Mode=TwoWay}">
                 <ComboBoxItem Content="Car"/>
                 <ComboBoxItem Content="Bicycle"/>
                 <ComboBoxItem Content="Walking"/>

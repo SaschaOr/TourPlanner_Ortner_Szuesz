@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using TourPlanner_Ortner_Szuesz.BL.PDF_Generation;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Models.Enums;

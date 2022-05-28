@@ -42,16 +42,9 @@ namespace TourPlanner_Ortner_Szuesz.Models
             this.TransportType = transportType;
         }
 
-        // for testing purposes
-        public Tour(string name)
-        {
-            this.Name = name;
-        }
-
         public Tour()
         {
 
         }
-        
     }
 }

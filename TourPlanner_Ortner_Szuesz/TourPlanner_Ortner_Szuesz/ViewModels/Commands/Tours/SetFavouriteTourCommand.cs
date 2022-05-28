@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using TourPlanner_Ortner_Szuesz.Models;
-
-namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours
+﻿namespace TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours
 {
     public class SetFavouriteTourCommand : CommandBase
     {

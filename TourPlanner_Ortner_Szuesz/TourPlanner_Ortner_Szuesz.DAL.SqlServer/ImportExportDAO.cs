@@ -1,14 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TourPlanner_Ortner_Szuesz.DAL.Common;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
-using TourPlanner_Ortner_Szuesz.Models;
 
 namespace TourPlanner_Ortner_Szuesz.DAL.SqlServer
 {

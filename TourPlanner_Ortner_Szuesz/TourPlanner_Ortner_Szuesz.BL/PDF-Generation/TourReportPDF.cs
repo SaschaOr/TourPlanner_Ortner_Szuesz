@@ -1,7 +1,5 @@
-﻿using iText.IO.Font.Constants;
-using iText.IO.Image;
+﻿using iText.IO.Image;
 using iText.Kernel.Colors;
-using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
@@ -9,12 +7,8 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.Models;
 
@@ -130,7 +124,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
                .Add(new Paragraph("Estimated Time (min)"));
             Cell cell72 = new Cell(1, 1)
-               .Add(new Paragraph((tourItem.EstimatedTime/60).ToString()));
+               .Add(new Paragraph((tourItem.EstimatedTime).ToString()));
 
             Cell cell81 = new Cell(1, 1)
                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)

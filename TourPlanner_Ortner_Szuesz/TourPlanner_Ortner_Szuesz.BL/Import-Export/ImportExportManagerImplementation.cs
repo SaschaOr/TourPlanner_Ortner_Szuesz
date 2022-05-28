@@ -1,9 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
 using TourPlanner_Ortner_Szuesz.DAL.SqlServer;
@@ -27,12 +23,14 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
             importExportDAO.DeleteAllTours();
         }
 
-        public void ImportAllTours(IEnumerable<Tour> tours)
+        public async Task<Tour> ImportAllTours(IEnumerable<Tour> tours)
         {
             foreach (Tour tour in tours)
             {
-                TourManagerFactory.GetTourFactoryManager(Logger).CreateItemAfterImport(tour);
+                await TourManagerFactory.GetTourFactoryManager(Logger).CreateItemAfterImport(tour);
             }
+
+            return new Tour();
         }
     }
 }

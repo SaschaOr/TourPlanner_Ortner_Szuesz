@@ -1,11 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+﻿using System;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.DAL.DAO;
 

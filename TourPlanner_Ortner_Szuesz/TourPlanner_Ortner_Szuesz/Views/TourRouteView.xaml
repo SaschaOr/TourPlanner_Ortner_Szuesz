@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Content="{Binding SelectedTour.Name}"/>
-        <Image Grid.Row="1" Grid.Column="0" Source="{Binding SelectedTour.RouteImage, TargetNullValue={x:Null}}"/>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Content="{Binding SelectedTour.Name, Mode=OneWay}"/>
+        <Image Grid.Row="1" Grid.Column="0" Source="{Binding SelectedTour.RouteImage, TargetNullValue={x:Null}, Mode=OneWay}"/>
     </Grid>
 </UserControl>

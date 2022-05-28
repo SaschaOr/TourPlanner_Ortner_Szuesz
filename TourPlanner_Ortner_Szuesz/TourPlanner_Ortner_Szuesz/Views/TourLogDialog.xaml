@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding DialogHeading}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding DialogHeading, Mode=OneWay}"/>
 
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
@@ -33,17 +33,17 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Date:"/>
-            <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding TourLogDate, TargetNullValue={x:Static System:DateTime.Now}}"/>
+            <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding TourLogDate, TargetNullValue={x:Static System:DateTime.Now}, Mode=TwoWay}"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Time (min):"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TourLogTime}"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Difficulty:"/>
-            <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding ComboDifficultyTypeIndex}" Text="{Binding TourLogDifficulty}">
+            <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding ComboDifficultyTypeIndex, Mode=TwoWay}" Text="{Binding TourLogDifficulty, Mode=TwoWay}">
                 <ComboBoxItem Content="easy"/>
                 <ComboBoxItem Content="medium"/>
                 <ComboBoxItem Content="hard"/>
             </ComboBox>
             <Label Grid.Row="3" Grid.Column="0" Content="Rating:"/>
-            <ComboBox Grid.Row="3" Grid.Column="1" SelectedIndex="{Binding ComboRatingIndex}" Text="{Binding TourLogRating}">
+            <ComboBox Grid.Row="3" Grid.Column="1" SelectedIndex="{Binding ComboRatingIndex, Mode=TwoWay}" Text="{Binding TourLogRating, Mode=TwoWay}">
                 <ComboBoxItem Content="1 - very good"/>
                 <ComboBoxItem Content="2 - good"/>
                 <ComboBoxItem Content="3 - ok"/>
@@ -51,7 +51,7 @@
                 <ComboBoxItem Content="5 - very bad"/>
             </ComboBox>
             <Label Grid.Row="4" Grid.Column="0" Content="Comment:"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TourLogComment}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TourLogComment, Mode=TwoWay}"/>
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0">

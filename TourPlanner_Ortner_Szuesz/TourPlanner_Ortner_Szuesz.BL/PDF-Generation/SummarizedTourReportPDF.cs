@@ -6,12 +6,8 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.DAL.Configuration;
 using TourPlanner_Ortner_Szuesz.Models;
 
@@ -134,7 +130,6 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
             // add generated table to document
             tourDocument.Add(tableTourLogs);
             
-
             tourDocument.Close();
 
             return true;

@@ -1,15 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Models.Enums;
 using TourPlanner_Ortner_Szuesz.ViewModels;
-using TourPlanner_Ortner_Szuesz.Views;
 
 namespace TourPlanner_Ortner_Szuesz.Tests
 {

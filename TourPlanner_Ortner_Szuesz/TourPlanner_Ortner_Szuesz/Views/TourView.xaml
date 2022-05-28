@@ -9,10 +9,10 @@
 
         <Style TargetType="ListViewItem">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding IsFavourite, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                <DataTrigger Binding="{Binding IsFavourite, Mode=TwoWay}" Value="True">
                     <Setter Property="Foreground" Value="Goldenrod"></Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding IsFavourite}" Value="False">
+                <DataTrigger Binding="{Binding IsFavourite, Mode=TwoWay}" Value="False">
                     <Setter Property="Foreground" Value="Black"></Setter>
                 </DataTrigger>
             </Style.Triggers>
@@ -54,8 +54,8 @@
             </Button>
         </Grid>
 
-        <ListView ItemsSource="{Binding Tours}"
-                  SelectedItem="{Binding SelectedTour}"
+        <ListView ItemsSource="{Binding Tours, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedTour, Mode=TwoWay}"
                   Name="toursListView"
                   DisplayMemberPath="Name"
                   Grid.Row="1" Margin="5"></ListView>

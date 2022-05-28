@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using TourPlanner_Ortner_Szuesz.BL;
 using TourPlanner_Ortner_Szuesz.Models;
-using TourPlanner_Ortner_Szuesz.ViewModels.Commands;
 using TourPlanner_Ortner_Szuesz.Views;
-using System.Drawing;
 using TourPlanner_Ortner_Szuesz.ViewModels.Commands.Tours;
 using Microsoft.Extensions.Logging;
 using TourPlanner_Ortner_Szuesz.BL.PDF_Generation;
@@ -21,7 +16,6 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 {
     public class TourListViewModel : ViewModelBase
     {
-        //private ITourItemFactory tourItemFactory;
         private ITourManager mediaManager;
         private Tour selectedTour;
 
@@ -72,7 +66,6 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             }
         }
 
-        // pass itemFactory over constructor parameter!
         public TourListViewModel(TourLogListViewModel tourLogListViewModel, ILogger logger)
         {
             Logger = logger;
@@ -94,7 +87,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             FillTourList();
         }
 
-        private void FillTourList()
+        public void FillTourList()
         {
             foreach (Tour tour in this.mediaManager.GetItems())
             {
@@ -123,7 +116,6 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             catch
             {
                 image = null;
-                Logger.LogError($"{DateTime.Now}: [ERROR] could not find tour image in file system.");
             }
 
             return image;
@@ -131,6 +123,7 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
         public void AddNewTourToList(Tour tourItem)
         {
+            tourItem.EstimatedTime /= DIVIDER_SECONDS_TO_MINUTES;
             Tours.Add(tourItem);
         }
 

@@ -1,14 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using TourPlanner_Ortner_Szuesz.BL;
-using TourPlanner_Ortner_Szuesz.BL.PDF_Generation;
 using TourPlanner_Ortner_Szuesz.Models;
 using TourPlanner_Ortner_Szuesz.Models.Enums;
 
