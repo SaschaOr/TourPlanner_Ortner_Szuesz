@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{Binding DialogHeading, Mode=OneWay}"/>
+        <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="18" Content="{Binding DialogHeading, Mode=OneWay}"/>
 
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
