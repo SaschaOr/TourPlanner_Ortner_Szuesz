@@ -1,0 +1,25 @@
+CREATE TABLE public.tour (
+    id serial4 NOT NULL,
+    name varchar NOT NULL,
+    description varchar NOT NULL,
+    startlocation varchar NOT NULL,
+    endlocation varchar NOT NULL,
+    transporttype smallint NOT NULL,
+    distance int4 NULL,
+    estimatedtime int4 NULL,
+    routeimagepath varchar NULL,
+    isfavourite bool NULL,
+    CONSTRAINT tour_pk PRIMARY KEY (id)
+); 
+
+CREATE TABLE public.tourlog (
+    id serial4 NOT NULL,
+    "date" date NOT NULL,
+    difficulty int4 NOT NULL,
+    totaltime int4 NOT NULL,
+    rating int4 NULL,
+    "comment" varchar NULL,
+    tourid int4 NOT NULL,
+    CONSTRAINT tourlog_pk PRIMARY KEY (id),
+    CONSTRAINT tourlog_fk FOREIGN KEY (tourid) REFERENCES public.tour(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
