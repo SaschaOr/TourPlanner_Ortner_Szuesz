@@ -19,7 +19,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
 
         public void Export(ObservableCollection<Tour> tours, string filePath)
         {
-            if(!Directory.Exists(filePath))
+            if(!File.Exists(filePath))
             {
                 Logger.LogWarning($"{DateTime.Now}: [WARNING] file path for tour data export does not exist.");
                 return;
