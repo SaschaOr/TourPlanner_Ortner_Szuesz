@@ -77,15 +77,15 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 
             Cell header4 = new Cell(1, 1)
                     .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-                    .Add(new Paragraph("Average Time"));
+                    .Add(new Paragraph("Average Time (sec)"));
 
             Cell header5 = new Cell(1, 1)
                     .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-                    .Add(new Paragraph("Average Distance"));
+                    .Add(new Paragraph("Average Distance (km)"));
 
             Cell header6 = new Cell(1, 1)
                     .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-                    .Add(new Paragraph("Average Rating"));
+                    .Add(new Paragraph("Average Rating (1-5)"));
 
             tableTourLogs.AddCell(header1);
             tableTourLogs.AddCell(header2);

@@ -108,14 +108,14 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
             try
             {
                 tourLogItem = TourManagerFactory.GetTourLogFactoryManager(Logger).CreateItem(tourLogItem);
+
+                // change seconds to minutes
+                tourLogItem.TotalTime /= DIVIDER_SECONDS_TO_MINUTES;
             }
             catch(Exception ex)
             {
                 MessageBox.Show($"Error while saving tour log. Error: {ex.Message}");
             }
-
-            // change seconds to minutes
-            tourLogItem.TotalTime /= DIVIDER_SECONDS_TO_MINUTES;
 
             // show new tour in UI
             TourLogListViewModel.AddNewTourLogToList(tourLogItem);
