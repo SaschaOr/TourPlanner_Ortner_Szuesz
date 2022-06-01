@@ -25,6 +25,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
                 return;
             }
 
+            //ResetTourImage(tours);
             FillTourLogsInTours(tours);
 
             var serialise = new JsonSerializer();
@@ -42,6 +43,14 @@ namespace TourPlanner_Ortner_Szuesz.BL.Import_Export
             foreach (var tour in tours)
             {
                 tour.TourLogs = mediaManager.GetItems(tour.Id);
+            }
+        }
+
+        private void ResetTourImage(ObservableCollection<Tour> tours)
+        {
+            foreach (var tour in tours)
+            {
+                tour.RouteImage = new byte[0];
             }
         }
     }

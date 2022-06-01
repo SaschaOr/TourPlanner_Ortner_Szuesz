@@ -123,7 +123,11 @@ namespace TourPlanner_Ortner_Szuesz.ViewModels
 
         public void AddNewTourToList(Tour tourItem)
         {
-            tourItem.EstimatedTime /= DIVIDER_SECONDS_TO_MINUTES;
+            if (tourItem != null)
+            {
+                tourItem.EstimatedTime /= DIVIDER_SECONDS_TO_MINUTES;
+            }
+
             Tours.Add(tourItem);
         }
 

@@ -122,7 +122,7 @@ namespace TourPlanner_Ortner_Szuesz.BL.PDF_Generation
 
             Cell cell71 = new Cell(1, 1)
                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-               .Add(new Paragraph("Estimated Time (min)"));
+               .Add(new Paragraph("Estimated Time (sec)"));
             Cell cell72 = new Cell(1, 1)
                .Add(new Paragraph((tourItem.EstimatedTime).ToString()));
 
